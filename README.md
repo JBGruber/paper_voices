@@ -3,7 +3,7 @@
 
 <!-- badges: start -->
 
-[![R-CMD-check](https://github.com/JBGruber/paper_voices/workflows/compile/badge.svg)](https://github.com/JBGruber/paper_protest_troublemakers/actions)
+[![R-CMD-check](https://github.com/JBGruber/paper_voices/workflows/compile/badge.svg)](https://github.com/JBGruber/paper_voices/actions)
 <!-- badges: end -->
 
 ## Abstract

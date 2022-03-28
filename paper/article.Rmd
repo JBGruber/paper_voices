@@ -209,6 +209,7 @@ The second factor very likely only affects large scale, highly mediatised protes
 @gottliebProtestNewsFraming2015 suggests that coverage follows a *news framing cycle*:
 coverage of protest begins with a focus on conflict --- hence marginalising or ignoring the goals and grievances of a protest --- then shifts to more substantial coverage before returning to conflict.
 This concept, based on @downsAttentionCycle1972, follows the logic that journalists will use different frames to cover an event as time passes "to keep the story alive and fresh" [@chyiMediaSalienceProcess2004, p. 22].
+<!-- Also see MouraoFerguson2018 -->
 
 The *news framing cycle* intuitively makes sense, yet the proposed time frame might suffer from one problem:
 Gottlieb’s [-@gottliebProtestNewsFraming2015] case, the Occupy Wall Street movement, was arguably special since protest stretched over a long period and media attention did not wane for months.
