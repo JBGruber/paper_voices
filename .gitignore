@@ -1,0 +1,9 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+output
+paper/references_old.bib
+paper/article.docx
+paper/plots
+.~lock.*

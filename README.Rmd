@@ -1,0 +1,21 @@
+---
+output: github_document
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# Whose voices are heard? Making sense of framing patterns in protest coverage
+
+<!-- badges: start -->
+[![R-CMD-check](https://github.com/JBGruber/paper_voices/workflows/compile/badge.svg)](https://github.com/JBGruber/paper_protest_troublemakers/actions)
+<!-- badges: end -->
+
+## Abstract
+
+```{r abstract, child = "./paper/abstract.md"}
+```
