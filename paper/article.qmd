@@ -1,5 +1,26 @@
 ---
-output: pdf_document
+title: |
+    Whose voices are heard? [^1]
+    
+    [^1]: **Draft version. Please do not circulate or cite without permission.**
+subtitle: "Making sense of framing patterns in protest coverage"
+format:
+  aft-pdf: default
+  aft-html: default
+author:
+  - name: Johannes B. Gruber
+    affiliations:
+      - name: Vrije Universiteit Amsterdam
+        department: Department of Communication Science
+    orcid: 0000-0001-9177-1772
+    email: j.b.gruber@vu.nl
+    url: https://www.johannesbgruber.eu/
+date: today
+filters:
+  - abstract-section
+keywords: [protest paradigm, media framing, social movements, news reporting, content analysis]
+reference-section-title: References
+bibliography: references.bib
 ---
 
 ```{r setup, include=FALSE}
@@ -9,8 +30,16 @@ knitr::opts_chunk$set(
   fig.path = "plots/"
 )
 source("../misc/functions.R")
-
 ```
+
+# Abstract
+
+```{r article, child = "abstract.md"}
+```
+
+# Protest Coverage
+
+## The Protest Paradigm
 
 ## What Drives Protest Coverage? {#sec:factors}
 
@@ -221,3 +250,17 @@ Nevertheless, the idea of a protest news framing cycle seems worth testing, albe
 
 - `r hyp("H3l")`
 - `r hyp("H3m")`
+
+# Data and Methods
+
+## Content Analysis
+
+
+## Independent Variables
+
+
+# Results
+
+# Discussion and Conclusion
+
+

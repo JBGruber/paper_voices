@@ -1,12 +1,9 @@
 TITLE  := Whose_Voices
 OUTPUT_DIR  := output
+OUTPUT_FORMAT := aft-pdf
+MAIN_QMD := paper/article.qmd
 
-all: test-before compile clean count
-
-query-dependencies:
-	Rscript -e "source('./misc/functions.R'); \
-	install_missing(path = '.', install_dependencies = TRUE); \
-  install_missing(path = '.')
+all: compile clean count
 
 # needs littler package
 test-before:
@@ -15,15 +12,8 @@ test-before:
 compile:
 	rm -rf $(OUTPUT_DIR)
 	mkdir -p $(OUTPUT_DIR)
-	Rscript -e "rmarkdown::render('./sage/sage.Rmd', output_file = '../$(OUTPUT_DIR)/$(TITLE).pdf')"
-	Rscript -e "rmarkdown::render('README.Rmd', output_format = rmarkdown::github_document(html_preview = FALSE))"
-
-move:
-	mv ./sage/plots $(OUTPUT_DIR)
-	cp ./paper/references.bib $(OUTPUT_DIR)/references.bib
-	cp ./sage/sagej.cls $(OUTPUT_DIR)
-	cp ./sage/sageh.bst $(OUTPUT_DIR)
-	sed -i 's/..\/paper\///' ./$(OUTPUT_DIR)/$(TITLE).tex
+	cd $(OUTPUT_DIR);\
+		quarto render ../$(MAIN_QMD) --to $(OUTPUT_FORMAT) --output $(TITLE).pdf
 
 clean:
 	find . \
