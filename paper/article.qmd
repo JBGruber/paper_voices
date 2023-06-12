@@ -37,12 +37,33 @@ source("../misc/functions.R")
 ```{r article, child = "abstract.md"}
 ```
 
-# Protest Coverage
+# Introduction
+
+Protest is a fundamental democratic tool for citizens to voice dissent about issues in society.
+In modern democracies, however, citizens usually only hear about protest through mass media.
+And this hearing consists not only of the audience becoming aware of a protest event, but ideally should also involve them receiving the information to understand the underlying issue and the causes for the public dissent.
+
+# Protest Coverage in News Media
 
 ## The Protest Paradigm
 
+Most of the literature concerning protest coverage in news media uses the *protest paradigm* concept to explain a recurring pattern in news about demonstrations:
+the media focus on crime, clashes with police and the spectacle surrounding a protest or the protesters themselves and their looks, demographics or occupation, while neglecting to explain *why* protesters spent time and resources on organising and participating in a street demonstration in the first place.
+The *protest paradigm* explains this by presuming a mental catalogue, supposedly common among journalists, which indicates to them "where to look (and where not to look), and informs them about what to discover" [@chanJournalisticParadigmsCivil1984, p. 187].
+The *protest paradigm* is thus related to the literature on the sociology of newsmaking, which observed that news workers are "routinizing the unexpected" [@tuchmanMakingNewsDoing1973, p. 110] by creating practical and effective procedural rules, routines and mental catalogues of news story themes to cope with the onslaught of new events.
+
+Most of the focus in previous studies has been spent on the dangers of this routinised reporting.
+This is due to the normative core of the *protest paradigm*:
+by regularly focusing on the action itself, rather than the sometimes more elusive and complicated message [@smithProtestAgendaBuilding2001] the *protest paradigm* could lead to delegitimisation and marginalisation of protest events, protest movements, or protest as a political resource [@mcleodSocialControlSocial1999].
+
+Evidence for the *protest paradigm* has been found in most studies that analysed news coverage of protests over the years [for a systematic overview see @gruberTrouble2023].
+However, more recent work has also asked *how common* delegitimising devices of the *protest paradigm* are.
+While it seems fairly clear that *some* coverage follows routinized dismissive patterns, this might not be that damaging to protests as long as substantive information about causes and grievances are still available elsewhere.
+Studies following this logic suggest that the delegitimising aspects of the *protest paradigm* might occur in reporting more conditionally [@kilgoHierarchy2019; @woutersReportingDemonstrationsEpisodic2015], and less frequently over time [@gruberTrouble2023; @araizaHandsDontShoot2016; @kyriakidouIndignadosProtestsSpanish2017].
+
 ## What Drives Protest Coverage? {#sec:factors}
 
+This moves the conditions under which the delegitimising aspects of the *protest paradigm* are applied into focus.
 Most of the evidence we have regarding the factors which shape the conscious or unconscious choice of frames by the news media when covering protest comes from the strands of literature mentioned in Section ref(sec:paradigm).
 As stated, there is a long tradition in the sociology of news production and other fields that try to uncover principal factors that shape the news.
 However, what became clear is that the task is not an easy one as "the list of possible variables is almost endless" [@beerEcquidNoviSearch2010, p. 189].
@@ -255,6 +276,9 @@ Nevertheless, the idea of a protest news framing cycle seems worth testing, albe
 
 ## Content Analysis
 
+In its most advanced, and probably broadest, conceptualisation, @mcleodSocialControlSocial1999 state that the *protest paradigm* combines *unfavourable story framing*, *reliance on official sources and official definitions* and the *invocation of public opinion* (e.g., the protesters are a minority).
+
+<!-- "Protest coverage research needs to move beyond the dichotomous positive versus negative framing to account for the ways in which violence can in fact be a legit- imate way to attract media attention and legitimize protesters’ grievances and tactics (Cammaerts 2013; Drury and Reicher 2018; Saavedra and Drury 2019)" -->
 
 ## Independent Variables
 
