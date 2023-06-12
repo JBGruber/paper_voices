@@ -3,7 +3,9 @@
 .RData
 .Ruserdata
 output
-paper/references_old.bib
+paper/references_main.bib
 paper/article.docx
 paper/plots
 .~lock.*
+paper/aft.cls
+paper/te.bst

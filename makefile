@@ -3,7 +3,7 @@ OUTPUT_DIR  := output
 OUTPUT_FORMAT := aft-pdf
 MAIN_QMD := paper/article.qmd
 
-all: compile clean count
+all: test-before compile clean count
 
 # needs littler package
 test-before:
@@ -20,7 +20,7 @@ clean:
 	-name '*.log' -o \
 	-name '*.aux' -o \
 	-name '*.toc' | \
-	xargs rm -f; 
+	xargs rm -f;
 	
 count:
 	pdftotext "./$(OUTPUT_DIR)/$(TITLE).pdf" - | wc -w
