@@ -111,7 +111,7 @@ hyp <- function(num) {
 
 # test and update bib file
 update_bib <- function(qmds = c("../paper/article.qmd"),
-                       master_bib = "../paper/references_old.bib",
+                       master_bib = "../paper/references_main.bib",
                        clean_bib = "../paper/references.bib") {
   
   if (file.exists(master_bib)) {
@@ -124,6 +124,8 @@ update_bib <- function(qmds = c("../paper/article.qmd"),
       gsub("@", "", ., fixed = TRUE) %>% 
       sort() %>% 
       setdiff("vu")
+    
+    message(length(entries), " references found")
     
     if (file.exists("../data/pp_studies.csv")) {
       pp_studies <- rio::import("../data/pp_studies.csv")$`Bib-Key`
@@ -142,13 +144,14 @@ update_bib <- function(qmds = c("../paper/article.qmd"),
     bib_master <- suppressMessages(bibtex::read.bib(tmp))
     unlink(tmp)
     
-    
     if (!all(entries %in% names(bib_master))) {
       stop("Unknown entry: ", entries[!entries %in% names(bib_master)])
     }
     
     bib <- bib_master[entries]
     suppressMessages(bibtex::write.bib(bib, clean_bib))
+  } else {
+    warning("master_bib not found")
   }
   
   return(TRUE)

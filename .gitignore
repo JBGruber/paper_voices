@@ -9,3 +9,5 @@ paper/plots
 .~lock.*
 paper/aft.cls
 paper/te.bst
+
+/.luarc.json
