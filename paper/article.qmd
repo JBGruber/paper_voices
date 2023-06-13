@@ -43,6 +43,10 @@ Protest is a fundamental democratic tool for citizens to voice dissent about iss
 In modern democracies, however, citizens usually only hear about protest through mass media.
 And this hearing consists not only of the audience becoming aware of a protest event, but ideally should also involve them receiving the information to understand the underlying issue and the causes for the public dissent.
 
+> Which factors explain the choice of frames by the news media when covering protest events?
+
+While the concept of testing factors which condition protest coverage is not new [e.g., @boyleAdherenceProtestParadigm2012; @kilgoHierarchy2019; @leeTriggeringProtestParadigm2014], the set of variables presented in this section is novel and, to my knowledge, the most complete so far.
+
 # Protest Coverage in News Media
 
 ## The Protest Paradigm
@@ -64,84 +68,51 @@ Studies following this logic suggest that the delegitimising aspects of the *pro
 ## What Drives Protest Coverage? {#sec:factors}
 
 This moves the conditions under which the delegitimising aspects of the *protest paradigm* are applied into focus.
-Most of the evidence we have regarding the factors which shape the conscious or unconscious choice of frames by the news media when covering protest comes from the strands of literature mentioned in Section ref(sec:paradigm).
-As stated, there is a long tradition in the sociology of news production and other fields that try to uncover principal factors that shape the news.
-However, what became clear is that the task is not an easy one as "the list of possible variables is almost endless" [@beerEcquidNoviSearch2010, p. 189].
-@shoemakerMediatingMessage21st2014, as arguably one of the most prominent examples of the field, propose to divide factors into five distinct levels, ordered from micro to macro:
-The *individual* level, which describes the characteristics of the individual journalist or editor;
-the *routines* level, which describes the immediate constraining and enabling structures and routines within journalists work;
-the *organisation* level, which comprises the larger context of the routinised activities such as the goals, policies and structure of an organisation;
-the *social institution* level, which comprises influences on media types, such as the press, or other subsets of the media landscape;
-and the *social system* level, which describes influences on content from the system as a whole.
-What this thesis is most interested in are factors on the level of routines, organisations and the broader social system, which are thought to undergo several changes in the selected time frame.
+How these factors might shape reporting in practice is provided, for example, by @tenenboimweinblattProducingProtestNews2014, who studied in in-depth interviews how journalists perceived their hand in framing a social protest in Israel.
+At first, individual level factors, namely the strong indetification of journalists with the sociodemographically protesters, who belonged to a similar socio-economic class, and their message, which criticised the same issues reporters faced in their daily lives, resulted in a sympathetic stance and more supportive coverage.
+Yet, journalists noted that this identification and sympathy for the protest demands collided with factors such as professional and procedural norms, which kept their reporting "objective" with less supportive coverage than some had hoped for.
+As events progressed, substantial economic backlash from investors and advertisers, who felt targeted by protests, turned the table.
+Suddenly economic and organisational demands became more noticeable to journalists.
+In effect, journalists ceased to portray the protests in a favourable light after initial support.^[see also @shultzinerjournalistsprotest2018 and @shoemakerMediatingMessage21st2014 for a more general theory on factors that shape news.]
+<!-- This is in line with @curranPowerResponsibilityPress2007, who have argued that the historical control of the press by political actors has been replaced over time by market forces, which they believe to be even more effective in eliminating radical ideas from public discourse. -->
 
-Based on the existing literature, both the broader sociology of news and previous studies about protest coverage, I formulate theoretical expectations in this section regarding the third research question:
+What this example makes clear is that there is rarely just one factor that shapes reporting and that in order to explain reporting, the range of included factors should be as complete as possible.
+The literature has identified several of these factors that can be broadly divided in event-level, outlet-level and time-related factors.[^Similar to how @shoemakerMediatingMessage21st2014 divide influences on factors believed to shape the news into levels ordered from micro to macro.]
+Most of these studies measure a dividie between *delegitimising* and *legitimising* protest coverage.
+Although this dichotomy is a little simplistic [@harlowNewParadigm2023] it serves the purpose of formulating theoretical expectations here and to make it easier to discuss previous findings.
 
-> `r hyp("RQ3")`
-
-While the concept of testing factors which condition protest coverage is not new [e.g., @boyleAdherenceProtestParadigm2012; @kilgoHierarchy2019; @leeTriggeringProtestParadigm2014], the set of variables presented in this section is novel and, to my knowledge, the most complete so far.
-To make discussion of the factors easier, I follow @shoemakerMediatingMessage21st2014 by dividing them into levels, ordered from micro to macro.
-However, the three levels I use are different as they are closer tailored to the specific topic at hand --- finding the influences on how *protest* is reported.
-Specifically, the factors taken into account here are divided into event-level, outlet-level and factors connected to time.
-
-Note that at this stage, it is unknown which frames the analysis will reveal, making it impossible to specify which frames might correlate with which factors.
+<!-- Note that at this stage, it is unknown which frames the analysis will reveal, making it impossible to specify which frames might correlate with which factors.
 Many previous studies worked with the dichotomy of coverage adhering to the *protest paradigm* and coverage that is more supportive of a protest goal --- which I will call *delegitimising* and *legitimising* coverage in the following.
 As it is expected that most frames can be placed within this broad dichotomy, the hypotheses in this section capture the expected relation between factors and a potential set of frames that are, most likely, legitimising or delegitimising.
 In other words, while the analysis allows the revelation of more fine-grained frames, this section will discuss the theoretical expectations for relationships between the factors with legitimising and/or delegitimising coverage of protest.
 However, the dichotomy of legitimising and delegitimising coverage is unlikely to tell the entire story.
 What aspects of an event do news highlight and which do they omit specifically?
 Depending on the specific framing, the degree to which reports legitimise or delegitimise a protest cause could vary substantially.
-So while the described dichotomy is useful to discuss factors that drive reporting, the ultimate goal is to measure the influence these factors might have on the usage of specific frames.
+So while the described dichotomy is useful to discuss factors that drive reporting, the ultimate goal is to measure the influence these factors might have on the usage of specific frames. -->
 
 ### Event-Level Factors
 
 #### Protest Goals
 
-Several studies document that the goals or causes voiced by protesters shape the coverage these events receive.
-These studies are based on the idea that the media are agents of social control who consciously and unconsciously reward conformity to and punish deviance from a perceived mainstream or status quo [@mcleodSocialControlSocial1999].
+On the level of the individual event, several studies document that the *goals or causes* voiced by protesters shape the coverage these events receive.
+In earlier studies, this has been mostly attributed to the idea that the media are agents of social control, who consciously and unconsciously reward conformity to and punish deviance from a perceived mainstream or *status quo* [@mcleodSocialControlSocial1999].
 In this regard, @shoemakerMediaTreatmentDeviant1984 found that groups that are perceived as more deviant or radical tend to receive more delegitimising coverage [@hallPolicingCrisisMugging1978]^[Also see the deviance sphere in @hallinUncensoredWarMedia1986.].
 Based on this, @boyleInfluenceLevelDeviance2004 tested how the *level of deviance* of protests shape their coverage.
 They conclude that coverage of deviant protest conformed closer to the *protest paradigm*, conceptualised as more critical coverage, coverage employing episodic framing and coverage that is less likely to use protesters as sources.
 
-How this might work in practice was provided by @tenenboimweinblattProducingProtestNews2014, who studied in in-depth interviews how journalists perceived their hand in framing a social protest in Israel.
-At first, individual journalists were supportive of the movement as they identified strongly with protesters, who belonged to a similar socio-economic class, and their message, which criticised the same issues reporters faced in their daily lives.
-Yet, journalists noted that this identification and sympathy for the protest demands collided with professional and procedural norms, which kept their reporting "objective" with less supportive coverage than some had hoped for.
-As events progressed, substantial economic backlash from investors and advertisers, who felt targeted by protests, turned the table.
-Suddenly economic and organisational demands became more noticeable to journalists.
-After initial support, journalists subsequently ceased to portray the protests in a favourable light [see also @shultzinerjournalistsprotest2018].
-This is in line with @curranPowerResponsibilityPress2007, who have argued that the historical control of the press by political actors has been replaced over time by market forces, which they believe to be even more effective in eliminating radical ideas from public discourse.
-
-On a broader scale, @bennettindexing1990 has argued that influences like these lead to a pattern of "indexing" of the range of voices and interpretations of events "according to the range of views expressed in mainstream government debate about a given topic" (p. 106).
+The idea of a *level of deviance* can also be linked to @bennettindexing1990's theory of "indexing", which postulates that the range of voices and interpretations of events are organised "according to the range of views expressed in mainstream government debate about a given topic" (p. 106).
 This means that in times of elite consensus, media will limit its discussion to the opinions expressed by the powerful.
 Only in times of elite dissensus, the voices of the broader public will be heard.
 Otherwise, alternative information or narratives are assumed to encounter fierce resistance or outright blockage [@bennettNoneDareCall2006].
-Studies of war-time reporting, in particular, have lent strong empirical evidence to this supposition [@wolfsfeldMediaPoliticalConflict1997; @hallinDquncensoredWarDq1986].
 Generally, it is thought that indexing hurts protesters' ability to explain the causes of their efforts [@andrewsMakingNewsMovement2010].
 
-Specifically, reporting in the UK has been described as strongly centred, just as in other countries where free market ideals reign the press [@hallinComparingMediaSystems2004].
-Opinions left and right of the Labour and Conservative spectrum are hardly ever supported by the press.
-Therefore, protest goals outside the spectrum of "normal" political debate might hardly have a chance to gain traction through the press.
-@curranPowerResponsibilityPress2007 argue that this is a result of market forces that limit the scope of opinions in the press in Britain.
-In the 1970s and 1980s, for example, many radical and left-wing outlets were discontinued due to a lack of advertisement and subsequently funding.
-Depletion of the market has led to a highly concentrated ownership structure on the national newspaper market:
-According to a report by the @mediareformreport2021, only three companies (*News UK*, *Daily Mail Group* and *Reach*) control over 90% of national newspaper sales.
-
-Theory-wise, the idea that deviant goals are less likely to be cast in a positive light is hence well supported.
-However, the conceptualisation of deviance is less clear cut.
-Interestingly, @boyleInfluenceLevelDeviance2004 conceptualise the *level of deviance* by using a group's goals as well as the form of protest.
-The idea is that while street theatre, costumes, civil disobedience or clashes with police are one indicator of deviance, the degree of change sought by a protest is another [also @mcleodSocialControlSocial1999].
-This means that a group is deemed deviant either because they do deviant things or because their goal is considered deviant from the mainstream opinion.
-In later work, however, @boyleMeasuringLevelDeviance2009 proposed that goals and tactics should be treated as separate factors that exert their own influence on news treatment of protesters.
-
-How extreme or deviant a goal is depends on the assessment of the degree of change sought by the group.
-The level of deviance of goals is, therefore, often operationalised as three categories:
-protests that seek to maintain the status quo (least deviant); seek minor reform; or want radical change to the status quo (most deviant) [@boyleInfluenceLevelDeviance2004; @boyleNewspapersProtestExamination2005; @boyleMeasuringLevelDeviance2009; @boyleAdherenceProtestParadigm2012].
-The distinction of protesters' goals between support or threat to the status quo, however, is difficult, if not arbitrary, as @kilgoHierarchy2019 note:
-there is no irrefutable conceptualisation of the "status quo" as political and social realities are constantly changing; a goal that was a threat to the status quo five or ten years ago could be in favour of the current situation.
-@boyleMeasuringLevelDeviance2009, for example, tested this idea by comparing the treatment of pro-life and pro-choice protests before and after the ruling in the Roe v. Wade case --- which effectively legalised abortion in the entire US.
+However, while the notion that deviant goals are less likely to be cast in a positive light is well supported, newer studies have departed from it due to a theoretical ambiguity:
+there is no irrefutable conceptualisation of the "status quo" as political and social realities are constantly changing [@kilgoHierarchy2019; @harlowNewParadigm2023].
+A goal that was a threat to the status quo five or ten years ago could be in favour of the current situation.
+<!-- @boyleMeasuringLevelDeviance2009, for example, tested this idea by comparing the treatment of pro-life and pro-choice protests before and after the ruling in the Roe v. Wade case --- which effectively legalised abortion in the entire US.
 They found only partial support for the importance of the status quo for protest coverage as pro-life protesters were treated more critically after their goal became to change the status quo, but pro-choice protesters were treated the same before and after the law changed.
-Similarly, @boyleNewspapersProtestExamination2005 found that while the level of deviance of most protest movements decreased over time, headline and article valence stayed roughly the same.
-Analysing the deviance of protest goals from the status quo, therefore, appears less meaningful.
+Similarly, @boyleNewspapersProtestExamination2005 found that while the level of deviance of most protest movements decreased over time, headline and article valence stayed roughly the same. -->
+Analysing the deviance of protest goals from the status quo, therefore, appears less meaningful and has shifted the attention to more clear cut categories.
 
 Besides the level of deviance, studies also assessed the type of goal as a factor for explaining coverage of protests.
 The specific protest categories differ between studies:
@@ -287,4 +258,5 @@ In its most advanced, and probably broadest, conceptualisation, @mcleodSocialCon
 
 # Discussion and Conclusion
 
-
+\newpage
+# References
