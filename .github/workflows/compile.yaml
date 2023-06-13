@@ -25,7 +25,7 @@ jobs:
       - name: Install pak and remaining system dependencies
         run: |
           install.packages("pak", repos = "https://r-lib.github.io/p/pak/stable/")
-          source('./tests/functions.R')
+          source('./misc/functions.R')
           install.packages("tools")
           install_missing(path = '.', install_dependencies = TRUE)
           install_missing(path = '.')
