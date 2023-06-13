@@ -112,15 +112,13 @@ A goal that was a threat to the status quo five or ten years ago could be in fav
 <!-- @boyleMeasuringLevelDeviance2009, for example, tested this idea by comparing the treatment of pro-life and pro-choice protests before and after the ruling in the Roe v. Wade case --- which effectively legalised abortion in the entire US.
 They found only partial support for the importance of the status quo for protest coverage as pro-life protesters were treated more critically after their goal became to change the status quo, but pro-choice protesters were treated the same before and after the law changed.
 Similarly, @boyleNewspapersProtestExamination2005 found that while the level of deviance of most protest movements decreased over time, headline and article valence stayed roughly the same. -->
-Analysing the deviance of protest goals from the status quo, therefore, appears less meaningful and has shifted the attention to more clear cut categories.
 
-Besides the level of deviance, studies also assessed the type of goal as a factor for explaining coverage of protests.
-The specific protest categories differ between studies:
-@boyleInfluenceLevelDeviance2004 and @boyleNewspapersProtestExamination2005 provided that in a range of events between 1960 and 1999, anti-war protesters were treated most critically, followed by labour protests (e.g., strikes and pickets), protests against wrongdoings by the police [only @boyleInfluenceLevelDeviance2004] and social-issue protests (e.g., abortion or hunger) which were treated most favourably.
+Analysing the deviance of protest goals from the status quo, therefore, appears less meaningful and has shifted the attention to more clear cut categories.
+@boyleInfluenceLevelDeviance2004 and @boyleNewspapersProtestExamination2005 studied a range of events between 1960 and 1999 and found that anti-war protesters were treated most critically, followed by labour protests (e.g., strikes and pickets), protests against wrongdoings by the police [only @boyleInfluenceLevelDeviance2004] and social-issue protests (e.g., abortion or hunger) which were treated most favourably.
 In an analysis of newer coverage (2007-2009), @boyleAdherenceProtestParadigm2012 found that *political protests*, by which they mean protests seeking political change, were treated more critically than anti-war and social-issue protests.
 
 Instead of ranking these types of protest according to the level of deviance, @kilgoHierarchy2019 suggest that "journalistic routines are subject to a *hierarchy of social struggle*, in which certain topics are given precedence and legitimacy, and others are delegitimised, trivialised, or ignored altogether" (p. 16).
-They also add several new types to this list --- only some of which apply to the UK.
+They also add several new types to this list.
 Specifically, they found that coverage of protest against anti-Black and anti-Indigenous racism, international protest, and anti-Trump protests use frames that delegitimise their issue far more often than other protest types.
 For some issues, like health, the environment and immigration protests, the press used legitimising frames more often.
 Similarly, @harlowWholeWorldWatching2020 coded 33 specific types of protests before summarising them into six categories.
@@ -134,20 +132,20 @@ I will use five broad categories for protest goals, ordered from most to least l
 *political*, *anti-war*, *labour*, *police* and *social-issue* protests [@boyleAdherenceProtestParadigm2012; @boyleNewspapersProtestExamination2005; @boyleInfluenceLevelDeviance2004].
 The hypotheses I will test are thus:
 
-- `r hyp("H3a")`
-- `r hyp("H3b")`
+- `r hyp("H1a")`
+- `r hyp("H1b")`
 
-Note that the expected hierarchy in **H3b** is the flipped version of **H3a** as I expect that the likelihood for a protest to be covered with a legitimising frame should be roughly diametrically opposed to the likelihood for a protest to be covered with a delegitimising frame.
+Note that the expected hierarchy in **H1b** is the flipped version of **H1a** as I expect that the likelihood for a protest to be covered with a legitimising frame should be roughly diametrically opposed to the likelihood for a protest to be covered with a delegitimising frame.
 
 #### Tactics
 
-As mentioned above, early studies often treated goals and tactics as two sides of the same coin.
+Early studies often treated goals and tactics as two sides of the same coin.
 However, @boyleMeasuringLevelDeviance2009 established that this is a shortcoming as both have distinct effects on the coverage of protest.
 Specifically, they showed that when both are taken into account, extreme protest tactics facilitate critical coverage stronger than protest goals.
 This insight had already been observed by one of the earliest studies of protest coverage:
 @gitlinWholeWorldWatching1980 found that the amount of outright negative coverage, instead of trivialisation, increased as anti-war protests became more extreme.
 @boyleAdherenceProtestParadigm2012, who additionally test the effects of protest location, protest type, and a group's goals in an international comparison of protest coverage, conclude that the tactics employed during a protest are the strongest determinant of delegitimising coverage.
-Likewise, @WasowSeeding2020 concludes that nonviolent black-led protests between 1960 and 1972 led to more coverage of civil rights issues, while protester violence invoked language associated with disorder and calls for law and order.
+Likewise, @WasowSeeding2020 concludes that nonviolent black-led protests during the civil rights movement led to more coverage of civil rights issues, while protester violence invoked language associated with disorder and calls for law and order.
 
 How extreme the tactics are is usually determined by two variables:
 do the protesters break laws and do they engage in violence?
@@ -155,13 +153,13 @@ From a broader perspective, a focus on extreme protest tactics is, therefore, in
 usually, the clashes rather than the message of a protest will produce most conflict, drama, unusualness and negativity.
 This leads to the following expectations:
 
-- `r hyp("H3c")`
-- `r hyp("H3d")`
+- `r hyp("H2a")`
+- `r hyp("H2b")`
 
 The relation between violent tactics and coverage has been known for a long time by both researchers and protesters [@gitlinWholeWorldWatching1980].
 When tactics become more violent, coverage becomes less supportive of the cause and more supportive of repressive measures.
 Nevertheless, protesters often use violent tactics because this will usually lead to (more) coverage [@boyleAdherenceProtestParadigm2012].
-**H3c** and **H3d**, therefore, also answer the question if this bargain makes sense for a movement.
+**H2a** and **H2b**, therefore, also answer the question if this bargain makes sense for a movement.
 
 
 #### State Response
@@ -175,11 +173,11 @@ when only the protesters were violent, the civil rights movement was penalised i
 the same was, however, true when both police and protesters engaged in substantial violence.
 In this last case, the coverage is predicted to focus on concerns about order and public safety.
 
-Wasow's [-@WasowSeeding2020] study thus mostly confirms the relationship between violence and (de)legitimising coverage formalised in **H3c** and **H3d**.
+Wasow's [-@WasowSeeding2020] study thus mostly confirms the relationship between violence and (de)legitimising coverage formalised in **H2a** and **H2b**.
 A scenario in which the state uses violent repression against peaceful protesters, however, has not been covered by any previous studies.
 Following @WasowSeeding2020, I include this additional layer, which leads to the expectation that:
 
-- `r hyp("H3e")`
+- `r hyp("H3")`
 
 ### Outlet-Level Factors
 
@@ -187,13 +185,13 @@ Following @WasowSeeding2020, I include this additional layer, which leads to the
 
 In the landmark study which defined the idea of a *protest paradigm*, @chanJournalisticParadigmsCivil1984 found that not all newspapers engage in delegitimising protests in the same way:
 the left-leaning media were less hostile towards the protesting teachers and students in Hong Kong than centrist media, which were in turn less hostile than right-leaning journalists.
-This factor has usually been overlooked in subsequent US-based studies, which might assume that ideological differences between major outlets are less important given the emphasis on objectivity in the country's journalistic culture.
-More recent studies, however, have started again to employ newspaper ideology as an explaining factor for the level of marginalisation different protests face [@leeTriggeringProtestParadigm2014; @shahinProtestingParadigmComparative2016; @ozMainstreamMediasCoverage2016].
-As mentioned above, UK media are distinctly more partisan than outlets in the US and elsewhere [@kuhnPoliticsMediaBritain2007; @hallinComparingMediaSystems2004], which is likely to increase the effect of newspaper ideology on protest reporting.
+This factor has usually been overlooked in subsequent US-based studies, which might have assumed that ideological differences between major outlets are less important given the emphasis on objectivity in the country's journalistic culture.
+More recent studies, however, have started again to employ newspaper ideology as an explaining factor for the level of delegitimising reporting different protests face [@leeTriggeringProtestParadigm2014; @shahinProtestingParadigmComparative2016; @ozMainstreamMediasCoverage2016].
+UK media --- the focus of this study --- are known to be distinctly more partisan than outlets in the US and elsewhere [@kuhnPoliticsMediaBritain2007; @hallinComparingMediaSystems2004], which is likely to increase the effect of newspaper ideology on protest reporting.
 This leads to the expectation:
 
-- `r hyp("H3f")`
-- `r hyp("H3g")`
+- `r hyp("H4a")`
+- `r hyp("H4b")`
 
 @weaverRevisitingProtestParadigm2012 add nuance to this:
 more than by their right or left ideology, the coverage of an outlet might be determined by the distance of their own ideological tilt to the ideology of a protest in question.
@@ -202,29 +200,41 @@ Their finding suggests that liberally aligned MSNBC was most likely to marginali
 Since protests have traditionally held goals that were considered left more often in Western countries --- and continue to do so [@borbathDifferentWorldsContention2020] --- the assumption that right-leaning media are generally more critical of protest might be incorrect.
 This leads to two hypotheses that will be tested:
 
-- `r hyp("H3h")`
-- `r hyp("H3i")`
+- `r hyp("H5a")`
+- `r hyp("H5b")`
 
 #### Type of Newspaper
 
-Gavin [-@gavinPressTelevisionBritish2007, pp. 95-118] and @rosieAnarchistsWorldCup2009 add another factor related to newspaper outlets that is especially pronounced in the UK:
+Gavin [-@gavinPressTelevisionBritish2007, pp. 95-118] and @rosieAnarchistsWorldCup2009 add another factor related to newspaper outlets:
 the difference between tabloid and broadsheet newspapers.
-@gavinPressTelevisionBritish2007, who assessed the May Day demonstration in London in 2000, concluded that tabloid outlets used elements from the *protest paradigm* more extensively and failed to mention any motivation or goals of the protest.
+In general, it is expected that tabloid newspapers are more focused on human interest and entertainment [@kuhnPoliticsMediaBritain2007; @hallinComparingMediaSystems2004].
+The sharp divide in reporting style between broadsheets newspapers (*The Daily Telegraph*, the *Financial Times*, *The Guardian*, *The Independent* and *The Times*), and tabloids (*Daily Express*, *Daily Mail*, the *Daily Mirror* and *The Sun*) is a well-known factor in the UK media system and should hence not be neglected.
+
+@gavinPressTelevisionBritish2007, who assessed the May Day demonstration in London in 2000, concluded that tabloid outlets used the delegitimising elements from the *protest paradigm* more extensively and failed to mention any motivation or goals of the protest.
 Broadsheet newspapers --- especially *The Guardian* --- apparently made an effort to explain why the protests were held.
 In their qualitative study, @rosieAnarchistsWorldCup2009 find that tabloid newspapers were more extreme in their framing of peaceful G8 protesters as a fringe group of radical militants.
-The sharp divide in reporting style between broadsheets newspapers (*The Daily Telegraph*, the *Financial Times*, *The Guardian*, *The Independent* and *The Times*), and tabloids (*Daily Express*, *Daily Mail*, the *Daily Mirror* and *The Sun*) is well-known and essentially unique to the UK media system.
-In general, it is expected that tabloid newspapers are more focused on human interest and entertainment [@kuhnPoliticsMediaBritain2007; @hallinComparingMediaSystems2004].
 It is, therefore, only plausible to expect that the two types use different frames.
 Following the work by @rosieAnarchistsWorldCup2009, the following expectations can be made:
 
-- `r hyp("H3j")`
-- `r hyp("H3k")`
+- `r hyp("H6a")`
+- `r hyp("H6b")`
 
 ### Time-Bound Factors
+#### Year of Protest
 
 Two factors related to time are expected to have an influence on reporting about protests.
-The first one was already mentioned above:
-the year in which an article was published is expected to determine if it is being framed in a delegitimising way, with newer articles using delegitimising framing less and legitimising framing more often (**H2a** and **H2b**).
+The first one is that protests that happened more recently receive more legitimising coverage.
+In an earlier study, I showed that the level of legitimising framing in news about domestic protest has been steadily growing since the early 1990s [@gruberTrouble2023].
+Several mechanisms have been suggested for this:
+Protest has largely been normalised since the first seminal studies about movements in the 1960s have been conducted[@daltonDemocraticChallengesDemocratic2004; @sandersDynamicsProtestBritain2003; @norrisDemocraticPhoenixReinventing2002, pp. 188-212; @vanaelstWhoThatWo2001; @oliverPoliticalProcessesLocal2000].
+Today, many different groups employ protest as a tool, and many more people today have participated in a protest at least once in their lives [e.g., @borbathDifferentWorldsContention2020; @HutterChallenges2019].
+Besides this, information about protesters' goals and grievances are more readily available on the internet [@humprechtMoreSameMarketplace2013; @posterWhatMatterInternet2001; @boydSocialNetworkSites2011], while journalists likely feel more pressure to paint a complete picture today as audiences have a sharply increased pool of alternative information sources [@vanaelstPoliticalCommunicationHighchoice2017].
+
+Whethter it is a combination of mechanisms or other unknown forces, the expected result of this factor is:
+
+- `r hyp("H8a")`
+
+#### Days Since Protest
 
 The second factor very likely only affects large scale, highly mediatised protests.
 @gottliebProtestNewsFraming2015 suggests that coverage follows a *news framing cycle*:
@@ -240,8 +250,8 @@ In most cases, the media will have forgotten about a protest the day after the f
 
 Nevertheless, the idea of a protest news framing cycle seems worth testing, albeit in an abbreviated form:
 
-- `r hyp("H3l")`
-- `r hyp("H3m")`
+- `r hyp("H8a")`
+- `r hyp("H8b")`
 
 # Data and Methods
 
