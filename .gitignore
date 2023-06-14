@@ -11,3 +11,5 @@ paper/aft.cls
 paper/te.bst
 
 /.luarc.json
+paper/article.md
+paper/article.tex

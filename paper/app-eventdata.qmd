@@ -1,0 +1,22 @@
+## Selected and Recoded protest events {#app-eventdata .appendix}
+
+Events were filtered from @ClarkMMPdata2019 to include only protests in the UK.
+The table contains the ideology variable that was added through annotation of events.
+
+```{r}
+#| eval: false
+rio::import("../misc/mmp_events_coded_table.csv") %>%
+  knitr::kable(format = "latex",
+               booktabs = TRUE,
+               longtable = TRUE,
+               linesep = "",
+               caption = "Employed Subset of the MMP Data by Clark and Regan (2019) with Additional and Recoded Variables",
+               label = NA) %>%
+  kableExtra::kable_styling(
+    full_width = FALSE,
+    latex_options = "repeat_header",
+    font_size = 10
+  )%>% 
+  kableExtra::column_spec(c(1:3, 5), width = "1.8cm") %>%
+  kableExtra::column_spec(4, width = "6cm")
+```

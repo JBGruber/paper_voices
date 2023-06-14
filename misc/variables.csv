@@ -1,0 +1,11 @@
+Variable,Category,Source,Scale,Processed,Levels/Range,Levels-long,Mean
+Frame Use,Dependent,Analysis Result,Dichotomous,-,"0, 1","Present, Absent",-
+Protest Goal,Event-Level,MMP Data,Nominal,Recoded,"political*, social-issue, labour, anti-war, police","Political Protests, Social-Issue Protests, Labour Protests, Anti-War, Police",-
+Protester Violence,Event-Level,MMP Data,Dichotomous,-,"0*, 1",Violent (1) or Non Violent (0),0.39
+State Repression,Event-Level,MMP Data,Dichotomous,Combined,"0*, 1","Repression of Peacful Protest (1), No Repression (0)",0.18
+Newspaper Ideology,Outlet-Level,LexisNexis Meta,Dichotomous,Combined,"Left*, Right","Left, Right",0.51 (Right)
+Newspaper Type,Outlet-Level,LexisNexis Meta,Dichotomous,Combined,"Tabloid*, Broadsheet","Tabloid, Broadsheet",0.75 (Broadsheet)
+Ideological Divide,Outlet-Level,LexisNexis Meta,Nominal,Own Coding,"Congruence*, Conflict, Ambiguous ","Congruence, Conflict, Ambiguous ",-
+Days Since Start,Time-Bound,MMP + LN Meta,Interval,Combined + Recoded,0--1,0--1,7.58
+Year of Protest,Time-Bound,MMP Data,Ratio,Recoded,0--1,0--1,-
+Newspaper-Year,Level 2,LexisNexis Meta,Nominal,-,Newspaper x 1992–2017,-,-

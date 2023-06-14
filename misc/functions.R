@@ -1,3 +1,20 @@
+# some custom colours
+jbg_pal <- function(n, sel) {
+  cols <- c("lightred" = "#FF2600",
+            "darkred" = "#B41821",
+            "lightblue" = "#85D4E3",
+            "darkblue" = "#046C9A",
+            "brown" = "#79402F",
+            "gold" = "#E1AF00",
+            "grey" = "#899DA4",
+            "black" = "#252525")
+  if (!missing(n)) {
+    unname(cols[seq_len(n)])
+  } else if (!missing(sel)) {
+    unname(cols[sel])
+  }
+}
+
 custom_spell_check <- function(files, dict = "dictionary.dic") {
   
   misspellings <- spelling::spell_check_files(
@@ -123,7 +140,7 @@ update_bib <- function(qmds = c("../paper/article.qmd"),
       unique() %>% 
       gsub("@", "", ., fixed = TRUE) %>% 
       sort() %>% 
-      setdiff("vu")
+      setdiff(c("vu", "fig", "tab", "app"))
     
     message(length(entries), " references found")
     
@@ -155,4 +172,59 @@ update_bib <- function(qmds = c("../paper/article.qmd"),
   }
   
   return(TRUE)
+}
+
+
+is_latex <- function() knitr::pandoc_to("latex")
+
+is_word <- function() knitr::pandoc_to("docx")
+
+
+# printing tables for different formats
+custom_df_print <- function(tbl, 
+                            caption = NULL, 
+                            footnote = NULL, 
+                            notation = "symbol",
+                            font_size = 10, 
+                            escape = FALSE,
+                            latex_options = "basic",
+                            ...) {
+  
+  if (is_latex()) {
+    tbl %>% 
+      knitr::kable(format = "latex", 
+                   booktabs = TRUE,
+                   linesep = "",
+                   caption = caption,
+                   escape = escape,
+                   ...) %>%
+      kableExtra::kable_styling(
+        latex_options = latex_options,
+        font_size = font_size
+      ) %>%
+      kableExtra::add_footnote(footnote, notation = notation)
+  } else if (is_word()) {
+    tbl %>%
+      flextable::flextable() %>%
+      flextable::align(part = "all") %>% # left align
+      flextable::set_caption(caption = caption,
+                             autonum = autonum) %>%
+      flextable::fontsize(size = font_size, part = "body") %>%
+      {
+        if (isTRUE(!is.null(footnote))) {
+          if (length(footnote) > 1) {
+            footnote <- paste0(footnote, collapse = "\n")
+          }
+          (.) %>% 
+            flextable::add_footer_row(values = footnote,
+                                      colwidths = ncol(tbl))
+        } else {
+          (.)
+        }
+      } %>% 
+      flextable::theme_booktabs() %>%
+      flextable::autofit()
+  } else { # all other formats, e.g., HTML
+    knitr::kable(tbl)
+  }
 }
