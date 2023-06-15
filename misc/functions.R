@@ -91,7 +91,8 @@ install_missing <- function(path = "..",
     "tinytex",
     "rticles",
     "rmarkdown",
-    "littler"
+    "littler",
+    "lme4"
   )
   
   if (return_needed) {
