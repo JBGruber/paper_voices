@@ -140,7 +140,7 @@ update_bib <- function(qmds = c("../paper/article.qmd"),
       unique() %>% 
       gsub("@", "", ., fixed = TRUE) %>% 
       sort() %>% 
-      setdiff(c("vu", "fig", "tab", "app"))
+      setdiff(c("vu", "fig", "sec", "tbl"))
     
     message(length(entries), " references found")
     
@@ -195,7 +195,7 @@ custom_df_print <- function(tbl,
       knitr::kable(format = "latex", 
                    booktabs = TRUE,
                    linesep = "",
-                   caption = caption,
+                   #caption = caption,
                    escape = escape,
                    ...) %>%
       kableExtra::kable_styling(
