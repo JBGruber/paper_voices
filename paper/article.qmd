@@ -1,7 +1,7 @@
 ---
 title: |
     Whose voices are heard? [^1]
-    
+
     [^1]: **Draft version. Please do not circulate or cite without permission.**
 subtitle: "Making sense of framing patterns in protest coverage"
 format:
@@ -273,24 +273,24 @@ How this data was sourced is explained below.
 ```{r variables}
 #| label: tbl-variables
 #| tbl-cap: Model Variables
-variables <- rio::import("../misc/variables.csv")  |> 
-  mutate(across(everything(), ~gsub('"', '', .x, fixed = TRUE)))  |> 
+variables <- rio::import("../misc/variables.csv")  |>
+  mutate(across(everything(), ~gsub('"', '', .x, fixed = TRUE)))  |>
   select(-`Levels-long`, -Mean, -Category)
 
 if (isTRUE(knitr:::pandoc_to() == "latex")) {
-  variables  |> 
+  variables  |>
     custom_df_print(caption = "Model Variables",
                     font_size = 9,
                     footnote = "Reference category",
-                    latex_options = "scale_down")  |> 
-    pack_rows("Dependent", 1, 1)  |> 
-    pack_rows("Event-Level", 2, 4)  |> 
-    pack_rows("Outlet-Level", 5, 7)  |> 
-    pack_rows("Time-Bound", 8, 9)  |> 
-    pack_rows("Level 2", 10, 10)  |> 
+                    latex_options = "scale_down")  |>
+    pack_rows("Dependent", 1, 1)  |>
+    pack_rows("Event-Level", 2, 4)  |>
+    pack_rows("Outlet-Level", 5, 7)  |>
+    pack_rows("Time-Bound", 8, 9)  |>
+    pack_rows("Level 2", 10, 10)  |>
     column_spec(5, width = "3.7cm")
 } else {
-  variables  |> 
+  variables  |>
     custom_df_print(caption = "Model Variables", font_size = 9)
 }
 ```
@@ -303,7 +303,7 @@ Firstly, despite declining audiences, mainstream news media such as newspapers a
 Newspapers might have lost some of their intermedia agenda-setting power due to being slower to release breaking news, but the more in-depth writing produced by newspapers nevertheless forms a crucial share of what is redistributed via online news and social media and is key in initiating, amplifying and sustaining attention to an issue [@Langerwindrush2020; @harderIntermediaAgendaSetting2017; @rogstadTwitterJustRehashing2016].
 Secondly, suitable data from UK newspapers were already archived and digitally available for the whole period of interest.
 
-@tbl-outlets presents the selection of newspaper outlets, strategically chosen to contain variance on the two important factors: 
+@tbl-outlets presents the selection of newspaper outlets, strategically chosen to contain variance on the two important factors:
 ideology and type of newspaper in the UK
 Additionally the selection was made to include the outlets with the highest circulation figures.
 I retrieved articles from LexisNexis, utilizing the keywords "protest" and "demonstration" and several misspellings.
@@ -389,10 +389,10 @@ For the selected time frame in the UK, the *Mass Mobilization Project* lists 471
 ```{r}
 #| label: fig-mmpyear
 #| fig-cap: "Number of Protest Events in the UK per Year per Clark and Regan (2019)"
-readRDS("../misc/protest_event_data_uk.Rds")  |> 
-  mutate(year = lubridate::floor_date(date_start, "year"))  |> 
-  group_by(year)  |> 
-  count()  |> 
+readRDS("../misc/protest_event_data_uk.Rds")  |>
+  mutate(year = lubridate::floor_date(date_start, "year"))  |>
+  group_by(year)  |>
+  count()  |>
   ggplot(aes(x = year, y = n)) +
   geom_col(fill = jbg_pal(sel = "grey")) +
   scale_x_date(labels = lubridate::year, breaks = "year",
@@ -631,11 +631,124 @@ The full model, therefore, confirms this previous finding as the year has a sign
 Specifically, comparing the last year, 2017, in the dataset to the first year, 1992, legitimising framing has become `r marg("Year of protest (since 1992)", model = "legitimising", unit = "percent")` more likely on average.
 H8b is this confirmed.
 
-## Unpacking Frame Usage {#sec:regall}
+## Unpacking Frame Usage
+
+```{r margindframes, fig.cap="Average Marginal Effects for Significant Variables in Individual Frame Models", fig.height=12, fig.width=7}
+#| label: fig-margindframes
+#| fig-cap: Average Marginal Effects for Significant Variables in Individual Frame Models
+#| fig-height: 12
+#| fig-width: 7
+indfram_marg <- readRDS("../misc/model_margins_ind.Rds")
+
+marg_ind <- function(...) {
+  marg_default(df = indfram_marg, ...)
+}
+
+plot <- indfram_marg %>%
+  ggplot(aes(x = AME, y = factor, xmin = lower, xmax = upper)) +
+  geom_point(colour = "#939597") +
+  geom_pointrange(colour = "#939597") +
+  geom_vline(xintercept = 0, linetype = "dashed", colour = "#F65058") +
+  facet_wrap(~model, ncol = 1, scales = "free_y", strip.position = "top") +
+  #facet_grid(rows = vars(model), scales = "free_y", space = "free_y") +
+  labs(y = NULL, x = "Average Change in Probability of Frame Usage") +
+  theme(strip.background = element_rect(
+    fill = "#EEEFF1",
+    colour = NA
+  ))
+
+fcsts <- indfram_marg %>%
+  count(model) %>%
+  pull(n)
+
+# weird hack to control space between axis ticks
+margindframes <- ggplotGrob(plot)
+ind <- margindframes$layout$t[grepl("panel", margindframes$layout$name)]
+for (i in seq_along(ind)) {
+  margindframes$heights[[ind[i]]] = unit(fcsts[i], "null")
+}
+grid.newpage()
+grid.draw(margindframes)
+```
 
 Coming soon...
 
 # Discussion and Conclusion
+
+The analyses presented in this article provide further evidence that the importance of the *protest paradigm* for news framing of protest is more conditional than suggested several decades ago [also e.g., @kilgoHierarchy2019; @shahinProtestingParadigmComparative2016; @leeTriggeringProtestParadigm2014].
+Or in other words, not all protests are treated the same and hence not all voices are heard to the same degree.
+Specifically, the systematic analysis of a set of key factors that are expected to shape frame usage in the 5,639 articles in this study showed that the tactics and goals, arrests of protesters, the days between a protest and a report about it play important roles for how protests are framed in the media.
+Additionally, legitimising framing has become more common in recent years.
+The analysis presented in this chapter is, therefore, an important step toward understanding how different protests are treated by the media.
+
+So which factors do explain the usage of different frames?
+As it turns out, the answer depends on which frame one looks at.
+For the aggregated frames, it seems that delegitimising framing were used more arbitrarily.
+Their employment is significantly influenced by the protesters' goals, arrests, the media outlet, or the year of publication.
+Only violence and the time since the event have a significant impact:
+more violence increases the likelihood of delegitimising framing, and such framing is most likely shortly after a protest but decreases over time.
+This supports the theory behind the *protest paradigm*, suggesting that barring violence, protesters have limited control over how their actions are portrayed.
+
+However, considering only delegitimising frames doesn't provide a complete picture.
+Reports on peaceful protests, particularly those advocating for labour or social issues, published in broadsheet outlets in recent years, are most likely to feature legitimising frames.
+On important contribution of this article is then to show that factors shaping the usage of legitimising and delegitimising frames are not entirely antagonistic, except in the case of violence.
+
+The second area in which is study departs from previous research is that it also considers effects on the level of individual frames.
+Zooming in on this level provides some additional insights.
+Importantly, while delegitimising framing seemed somewhat arbitrary, the individual frames served a clear purpose for the press:
+Peaceful protests are often framed as a nuisance or reported on with the Decay of Morals frame, portraying protesters as fringe groups with immoral ideas.
+Violent protests are represented as troublemakers needing to be curtailed through law and order tactics or even police violence.
+
+A similar pattern is seen with legitimising frames:
+the Cause & Grievances frame is more likely applied to labour and social-issue protests, while the Righteous Struggle frame shows no significant relation to protest goals.
+Cause & Grievances is less likely used when violence occurs or when protesters are arrested and becomes more prevalent over time.
+
+The analyses presented here directly speak to several theories:
+The most robust finding is that violence predicts the usage of different frames in reports on protest.
+The *protest paradigm* also predicts the measured framing reasonably well --- at least on the aggregated level and for delegitimising framing.
+At least when the paradigm is defined as a default mindset when it comes to reporting about protests, which suggests that a majority of reporting uses delegitimising frames, ignoring most specific features of an event.
+However, *protest paradigm* does not explain the growing prevalence of legitimising frames, which co-exist with delegitimising coverage.
+While other scholars have found the *protest paradigm* to be more conditional though, the analyses here provide that mostly only legitimising framing is influenced by the tested factors.
+
+For the theory of a *hierarchy of social struggle* presented by @kilgoHierarchy2019, the picture is mixed.
+The demands of a protest *do* matter;
+however, a clear hierarchy did not emerge.
+The most plausible hierarchy can be observed at the level of aggregated legitimacy frames:
+social-issue protests are given precedence over protests with a *labour* issue, *anti-war*, *political* protest and finally protests against police brutality.
+Notably, this order is also different from what previous studies found and what had been theoretically expected [@boyleAdherenceProtestParadigm2012; @boyleNewspapersProtestExamination2005; @boyleInfluenceLevelDeviance2004].
+Furthermore, some of these differences, are not statistically significant.
+The results for individual frames suggest that rather than following one clear hierarchy, different protest demands seem to lead to a different focus in reporting.
+Generally though, except for the differences between goals observed in the application of the *police violence* frame, the usage of frames between demands appears rather similar, with only one or two demands following a different trajectory in each frame.
+The idea that some protest goals are treated more favourably by the media is, therefore, rejected for the UK case.
+
+The theory presented by @WasowSeeding2020 that *state repression of peaceful protest* leads to more legitimising coverage of said protest could also not be confirmed.
+In part, this was probably due to a lack of available cases, as not a single case of police violence against peaceful protesters was present for the UK in the MMP data.
+The employed proxy for state repression, police arrests, causes an effect in the opposite direction:
+legitimising framing was less likely to be used.
+Getting arrested, even while peaceful, diminishes the chances for protesters to get their message on the media agenda.
+The *police violence* frame is also more likely to be used in these cases;
+however, it is not at all clear if media reports using this frame aide protesters' causes.
+
+The idea that the *organisation* level, which comprises the larger context of the routinised activities such as the goals, policies and structure of a news organisation [@shoemakerMediatingMessage21st2014] influences the framing of protest events was also mostly rejected by the analysis here.
+The *ideology* of a news outlet matters only for the *righteous struggle* frame, while an ideological divide between protesters and outlet matters only for the *police violence* frame (AME = `r marg_ind("ideological divide: conflict", model = "Police Violence", abs = FALSE)`).
+Overall then, it seems that *newspaper ideology* plays a small role when it comes to framing of protest events in the UK.
+
+The difference between tabloid and broadsheet news outlets is surprisingly also rather small according to the analysis presented here.
+Only two frames are used differently between the newspaper types:
+the *police violence* frame, which attributes responsibility for clashes during protests to police is more common in tabloid newspapers;
+the legitimising *righteous struggle* frame, which highlights the positive effect of protests for their respective issues, is more common in broadsheets news.
+The result is surprising as previous studies assumed that the stark divide between newspaper titles with different ideologies and of different types cater to different audiences and would hence prefer different frames [@cammaertsSymbolicDamage2013; @gavinPressureGroupDirect2010].
+While this might certainly be true for individual protests, and has been found to be the case occasionally during manual coding in this study, the systematic analysis of all protests events and coverage in the UK did not replicate these findings.
+
+Finally, the analyses assed the existence of a *news framing cycle*:
+just as posed by @gottliebProtestNewsFraming2015, coverage of protest begins with a focus on conflict --- especially using the *troublemakers* and *law & order* frames.
+Unlike what was found by @gottliebProtestNewsFraming2015, though, these frames are not replaced with legitimising ones later on.
+In fact, the *righteous struggle* frame is also used less frequently after some time following a protest.
+Rather, it appears that the conflict frames are replaced by the *decay of morals* frame as time passes after the start of an event.
+The different finding here might be due to the main force @gottliebProtestNewsFraming2015 expects to drive the *news framing cycle*:
+growing participation.
+Yet, increased participation after the first day of an event is only common for few high-profile events that stretch over days and months --- like the Occupy Wall Street movement for which @gottliebProtestNewsFraming2015 developed the theory.
+Nevertheless, a variable that includes days after a protest started seems to be a worthwhile inclusion for studies that test factors of influence for protest reporting.
 
 This study is not without limitations.
 Firstly, it is limited in that it only focuses on newspapers and only addresses the state of protest coverage in the UK.
