@@ -436,6 +436,8 @@ Discussion of results is divided into two steps.
 I first refer to the frames aggregated into legitimising and delegitimising to test the hypotheses set up above.
 This, however, neglects some of the details revealed through the individual seven frames.
 
+## (De)Legitimising Framing
+
 ```{r}
 #| results: asis
 models <- readRDS("../misc/models.Rds")
@@ -533,11 +535,12 @@ grid.draw(margtwoframes)
 
 Focusing on **protest goals** first.
 Table 3 analyzes protest goals compared to the reference, political protests.
-Hypothesis H1a, proposing a hierarchy of social struggle that influences the use of *delegitimising* frames, is unsupported:
+Hypothesis H1a, proposing a hierarchy of social struggle that influences the use of **delegitimising** frames, is unsupported:
 no significant effect is found on the use of these frames among different goals.
 In other words, delegitimising frames are used similarly across all goals, refuting a social struggle hierarchy in UK newspaper coverage.
+However, as each article can contain one or multiple delegitimising or legitimising frames or neither, this result has no impact on H1b , as the two models are independentl from each other.
 
-In contrast, Hypothesis H1b, regarding a social struggle hierarchy influencing *legitimising* framing, is partially supported.
+In fact H1b, regarding a social struggle hierarchy influencing **legitimising** framing, is partially supported.
 Labour protests (AME: 6%) and social-issue protests (AME: 16%) are more likely to receive legitimising coverage than political protests.
 For instance, a typical labour issue, like a protest for police salaries, has a 6% higher chance of being reported with legitimising framing, and a protest against tuition fees (a social issue) is 16% more likely to be legitimised compared to political protests.
 However, anti-war and police protests show no significant difference from the reference category.
@@ -548,6 +551,89 @@ Specifically, protests against police brutality have the least chance of legitim
 Then come political protests, anti-war protests, labour protests, and finally, social-issue protests with the highest probability of legitimising framing.
 However, there is uncertainty in this hierarchy as political and anti-war protests show nearly identical probabilities of legitimising framing.
 
+As explained before, the relation between violent **tactics** and less favourable coverage of the protest is well established.
+Table 3 and @fig-margtwoframes confirm this connection.
+Violence has a significant effect in the expected directions in both the models for legitimising and delegitimising frames.
+When there is violence, the probability that a delegitimising frame is used increases by `r marg("violent protest", unit = "percent")`.
+Conversely, when protesters remain peaceful, the likelihood for usage of legitimising frames increases by `r marg("violent protest", model = "legitimising", unit = "percent")`.
+In other words, when protests become violent, it is a lot more likely that they will receive both more delegitimising and less legitimising coverage.
+Consequently, both H2a and H2b are accepted.
+Furthermore, some authors suggest that protests might use violent tactics to attract more media coverage [e.g., @boyleAdherenceProtestParadigm2012].
+This might still make sense, but given the significantly more negative coverage, media exposure for a specific protest needs to be quite high for this trade-off to make sense.
+
+The notion that the **state's response** matters for protest coverage is based on findings by @WasowSeeding2020, which suggest that in cases with violent reactions towards peaceful protest, coverage will be more legitimising.
+However, the findings here show the exact opposite effect:
+it appears that legitimising framing is *less* likely by `r marg("repression of peaceful p.", model = "legitimising", unit = "percent")` for events in which the state uses repressive tactics against peaceful protesters.
+This means that H3 has to be rejected.
+But why?
+
+It must be noted that the effect here is not driven by *violent* state responses to peaceful protest, as was the case in the study by @WasowSeeding2020.
+There were no instances of violent state response towards peaceful protest in the UK data set --- or at least they have not been coded by @ClarkMMPdata2019.
+Instead the variable *state repression of peaceful protest* reflects *arrests* of peaceful protesters here.
+The findings are nevertheless striking; it means that when protesters are arrested, this has a significantly negative impact on the probability of receiving coverage framed in a legitimising way, even if they remain peaceful.
+
+On the outlet level, three factors are taken into account: *newspaper ideology*, *ideological divide* and *newspaper type*.
+Despite a strong theoretical underpinning, **newspaper ideology** shows no significant effect in either of the two models in Table 3.
+This means both H4a and H4b have to be rejected.
+The outcome is surprising, especially since the UK case was specifically chosen because the ideological divide between outlets is more distinct than in the US or elsewhere [@kuhnPoliticsMediaBritain2007; @hallinComparingMediaSystems2004] and has been suggested to shape UK coverage of protest as well [@gavinPressTelevisionBritish2007].
+
+Instead, one might assume that **ideological divide** might instead explain coverage.
+In fact, during the manual part of the content analysis, it became apparent that some protests were supported openly by right-leaning news outlets, such as the 2000 fuel protests or protests against fox hunting legislation introduced in 2005, while left newspapers were much more critical.
+So maybe ideological conflict, rather than newspaper ideology, matters for reporting?
+Again, the answer is no.
+Both models show no significant difference between ideological congruence and conflict between protesters and newspaper.
+Both H5a and H5b are therefore rejected.
+This means that while there is anecdotal evidence that left-wing media are more critical of right-wing protest and vice versa, the phenomenon is not widespread enough to be picked up by systematic statistical analysis.
+
+Surprisingly, the *ideological ambiguity* category, which comprises very heterogeneous events ranging from protest against business practices of a company to ex-pat protests about issues abroad, has a positive effect in both models.
+It is thus not straightforward to understand why they are more likely to be covered with legitimising frames *as well* as delegitimising frames.
+One possible explanation is that journalists feel less constrained to voice their opinion when an issue hasn't been discussed along party lines (yet).
+
+Moving on to the *type of newspaper*, we can see that this indicator only has an effect in the model for legitimising frames:
+it is significantly less likely for tabloid news media to use legitimising frames than it is for broadsheet outlets.
+Specifically, the probability that a legitimising frame is used is `r marg("tabloid newspaper", model = "legitimising", unit = "points")` percentage points lower on average when an article is published in a tabloid newspaper.
+For delegitimising frames, it seems that both types of media outlets are equally likely to use delegitimising frames.
+Hypothesis H6a is therefore rejected, while H6b is accepted.
+
+Two of the tested factors were related to **timing** of events.
+The model for delegitimising frames shows that as more days pass after the beginning of a protest, it becomes more likely that articles will contain a delegitimising frame.
+The AME shows that the effect is one of the largest at a -`r marg("days from start", unit = "percent")`.
+However, note that *days from start* was one of the two variables that were rescaled so that the minimum was 0 and the maximum was one.
+The AME here, therefore, displays the change in probability when going from the minimum of 7 days before, to the maximum of 81 days after the start of a protest.
+The relation is shown in @fig-dfspred and it becomes clear that it is not  a linear one.
+Instead, we see the highest average probabilities that one of the delegitimising frames is used in the first week after a protest, with lower values before and after.
+Average probabilities decrease for a while but increase again after about 8 weeks --- a time frame in which only a few high-profile and long-lasting protests still receive any coverage at all.
+It seems then that delegitimising frames are most compelling to journalists in the direct aftermath of an event.
+This confirms the expectation in H8a.
+
+```{r}
+#| label: fig-dfspred
+#| fig-cap: Predicted Probabilities of Using a Delegitimising Frame Before and After the Start of a Protest (dotted red line)
+days_pred <- prediction::prediction(models$model_logit_dele_mlm) %>%
+  # scale back to original values
+  mutate(days_since_start = scales::rescale(
+    days_since_start,
+    to = c(-7, 81))
+  )
+days_pred %>%
+  ggplot(aes(x = days_since_start, y = fitted)) +
+  geom_point(colour = "#939597", alpha = 0.2) +
+  geom_smooth(method = "loess", formula = "y ~ x", se = FALSE, colour = "black") +
+  geom_vline(xintercept = 0, linetype = "dashed", colour = "#F65058") +
+  scale_x_continuous(breaks = c(-7, 0, 5, 10, 20, 30, 40, 50, 60, 70, 80)) +
+  labs(y = NULL, x = NULL)
+```
+
+As was already shown in @gruberTrouble2023, the year doesn't affect the probability of delegitimising frames but does increase the probability that legitimising frames being used.^[
+Although @gruberTrouble2023 uses the year in which an article was published while here it is the year of the protest event itself --- which is identical for most articles though. Note also that articles were excluded if they could not be matched with any event in the MMP data.
+]
+The full model, therefore, confirms this previous finding as the year has a significant positive effect on the probability that legitimising framing is used, suggesting legitimising frames become more salient over time.
+Specifically, comparing the last year, 2017, in the dataset to the first year, 1992, legitimising framing has become `r marg("Year of protest (since 1992)", model = "legitimising", unit = "percent")` more likely on average.
+H8b is this confirmed.
+
+## Unpacking Frame Usage {#sec:regall}
+
+Coming soon...
 
 # Discussion and Conclusion
 

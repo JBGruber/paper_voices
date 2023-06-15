@@ -268,3 +268,35 @@ custom_df_print <- function(tbl,
     knitr::kable(tbl)
   }
 }
+
+
+# custom printing for AME
+marg_default <- function(factor, 
+                         model = "delegitimising", 
+                         unit = c("none", "percent", "points", "double"), 
+                         abs = TRUE,
+                         df = NULL) {
+  unit <- match.arg(unit)
+  if (!factor %in% df$factor) {
+    stop("'factor' not in selection. Choose one of ", 
+         paste0("'", unique(df$factor), "'", collapse = ", "))
+  }
+  if (!model %in% df$model) {
+    stop("'model' not in selection. Choose one of ", 
+         paste0("'", unique(df$model), "'", collapse = ", "))
+  }
+  out <- df %>% 
+    filter(factor == !!factor & model == !!model) %>% 
+    pull(AME) %>% 
+    unname()
+  if (abs) {
+    out <- abs(out)
+  }
+  switch (unit,
+          none = scales::comma(out, accuracy = 0.01),
+          percent = scales::percent(out),
+          points = scales::comma(out * 100, accuracy = 1),
+          double = out
+  )
+}
+
