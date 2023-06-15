@@ -9,6 +9,8 @@ format:
     include-in-header:
       - text: |
           \usepackage{siunitx}
+          \usepackage{graphicx}
+          \usepackage{rotating}
   aft-html: default
 author:
   - name: Johannes B. Gruber
@@ -24,6 +26,9 @@ filters:
 keywords: [protest paradigm, media framing, social movements, news reporting, content analysis]
 reference-section-title: References
 bibliography: references.bib
+execute:
+  echo: false
+  eval: true
 ---
 
 ```{r setup, include=FALSE}
@@ -633,17 +638,77 @@ H8b is this confirmed.
 
 ## Unpacking Frame Usage
 
-```{r margindframes, fig.cap="Average Marginal Effects for Significant Variables in Individual Frame Models", fig.height=12, fig.width=7}
-#| label: fig-margindframes
-#| fig-cap: Average Marginal Effects for Significant Variables in Individual Frame Models
-#| fig-height: 12
-#| fig-width: 7
+In the previous section, the theoretical expectations towards what influences the usage of frames were tested.
+This was done using grouped dependent variables signifying if one of several delegitimising or legitimising frames were used.
+However, the use of this dichotomy has recently been criticised as potentially masking importan mechanisms in protest reporting [@harlowNewParadigm2023].
+This section, therefore, discusses regression results for seven different models, each using a different frame as the dependent variable.
+The data and model specifications for all of these models were identical to what was discussed above.
+Discussion of the results follows the same structure as the previous section using Table 4 and the AME in @fig-margindframes.
+
+```{r}
+#| results: asis
 indfram_marg <- readRDS("../misc/model_margins_ind.Rds")
 
 marg_ind <- function(...) {
   marg_default(df = indfram_marg, ...)
 }
 
+dep_ind <- c("Police Violence", "Law & Order", "Cause & Grievances", "Righteous Struggle", 
+"Troublemakers", "Decay of Morals", "Nuisance")
+
+models_sel <- models[c("model_logit_1_mlm", "model_logit_2_mlm",
+                       "model_logit_3_mlm", "model_logit_4_mlm",
+                       "model_logit_5_mlm", "model_logit_6_mlm",
+                       "model_logit_12_mlm")]
+reorder <- c(2, 5:7, 3:4, 1)
+
+
+if (is_latex()) {
+  texreg(
+    models_sel[reorder],
+    #custom.model.names = paste0("frame ", c(1:6, 12)),
+    custom.model.names = gsub("&", "\\&", dep_ind[reorder], fixed = TRUE),
+    custom.header = list("Delegitimising" = 1:4,
+                         "Legitimising" = 5:6),
+    caption = "Regression Results for Individual Frames",
+    custom.coef.names = c(
+      "(Intercept)",
+      "goal: anti-war ",
+      "goal: labour protests",
+      "goal: police",
+      "goal: social-issue",
+      "violent protest",
+      "repression of peaceful p.",
+      "right-wing",
+      "tabloid newspaper",
+      "ideological divide: conflict",
+      "ideological divide: ambiguous",
+      "days from start",
+      "year of protest"
+    ),
+    groups = list("Event-Level Factors" = 2:7, "Outlet-Level Factors" = 8:11, "Time Bound Factors" = 12:13),
+    digits = 3,
+    stars = c(0.001, 0.01, 0.05, 0.1),
+    symbol = "+",
+    scalebox = 0.7,
+    siunitx = TRUE,
+    single.row = FALSE,
+    booktabs = TRUE,
+    sideways = TRUE,
+    label = "tbl-regindframes",
+    use.packages = FALSE
+  )
+} else {
+  data.frame(placeholder = "In the PDF, the table is around here") %>%
+    custom_df_print(caption = "Regression Results for Individual Frames")
+}
+```
+
+```{r}
+#| label: fig-margindframes
+#| fig-cap: Average Marginal Effects for Significant Variables in Individual Frame Models
+#| fig-height: 12
+#| fig-width: 7
 plot <- indfram_marg %>%
   ggplot(aes(x = AME, y = factor, xmin = lower, xmax = upper)) +
   geom_point(colour = "#939597") +
@@ -671,7 +736,114 @@ grid.newpage()
 grid.draw(margindframes)
 ```
 
-Coming soon...
+In the previous section, I concluded that none of the **goals** has a significant effect on the probability that any delegitimising frame is used.
+Yet, on an individual frame level, several significant values are observed in Table 4.
+The Nuisance frame is significantly more likely to be utilized in the case of labour protests than for the control category (AME: `r marg_ind("goal: labour protests", model = "Nuisance")`).
+
+For protests against police brutality, the effects on various frames counteract each other.
+It's considerably more likely that Law & Order (AME: `r marg_ind("goal: police", model = "Law & Order")`) and the Troublemakers (AME: `r marg_ind("goal: police", model = "Troublemakers")`) frames are used in the coverage of police protests.
+Conversely, it is less likely that the Decay of Morals (AME: `r marg_ind("goal: police", model = "Decay of Morals", abs = FALSE)`) and/or the Nuisance (AME: `r marg_ind("goal: police", model = "Nuisance", abs = FALSE)`) frame are utilized.
+This means some delegitimising frames are more probable while others are less so, causing the likelihood of any delegitimizing frame being used to remain roughly the same.
+
+The chances of the Law & Order frame being used, revealing the positive influence of police presence, increases for protests against police brutality.
+However, a higher AME is observed in the model for the antithetical frame, Police Violence (AME: `r marg_ind("goal: police", unit = "percent", model = "Police Violence")`).
+That means that protests against police brutality are divisive:
+they lead to more coverage highlighting claims of police brutality and providing background on them;
+but coverage will also defend police actions.
+They lead to more coverage emphasizing claims of police brutality while also defending police actions.
+
+The final goal, social issues, only significantly alters the result in the model for the Law & Order frame.
+Specifically, it's `r marg_ind("goal: social-issue", unit = "percent", model = "Law & Order")` less probable that the Law & Order frame is utilized for social-issue protests in comparison to political protests.
+
+In the model for aggregated legitimizing frames, social issue and labour protests were given preference.
+Here we see that this effect is solely due to the increased likelihood of *Cause & Grievances* being used (AME: `r marg_ind("goal: labour protests", model = "Cause & Grievances", abs = FALSE)`).
+While the cause & grievances frame is significantly more probable (AME: r marg("goal: social-issue", model = "Cause & Grievances", abs = FALSE)), the righteous struggle model doesn't show any significant effect.
+
+The remaining frame, police violence, neither legitimising nor delegitimising, displays the most obvious evidence that different goals influence the journalists' choice to employ a frame.
+Anti-war and political protests use this frame in the same manner.
+All other demands lead to significantly different uses of this frame.
+Labour and social-issue protests are less likely to resort to police violence (AME: `r marg_ind("goal: labour protests", model = "Police Violence", abs = FALSE)`, `r marg_ind("goal: social-issue", model = "Police Violence", abs = FALSE)`), whereas anti police brutality protests are significantly more likely to be covered with this frame (AME: `r marg_ind("goal: police", model = "Police Violence", abs = FALSE)`).
+
+The outcomes for individual frames corroborate the theoretical idea behind H1a-b:
+the goal of a protest matters for how it's covered.
+However, results are more complex than anticipated.
+Not all protest events with certain types of goals are covered with frames that are more or less favourable for protesters.
+Instead, different protest demands seem to steer the focus of reporting.
+
+
+When it comes to protest **tactics**, the models for individual frames suggest that the positive impact on delegitimising framing was propelled by the use of the *Law & Order* (AME: `r marg_ind("violent protest", model = "Law & Order", abs = FALSE)`) and *troublemakers* (AME: `r marg_ind("violent protest", model = "Troublemakers", abs = FALSE)`) frames.
+The other two delegitimising frames actually have significant negative effects, although of a lesser magnitude.
+This is logical as both *law & order* and *troublemakers* are primarily centered around violence. 
+
+*Decay of morals* and *nuisance*, on the other hand, are less likely used respectively by `r marg_ind("violent protest", model = "Decay of Morals", unit = "percent")` and `r marg_ind("violent protest", model = "Nuisance", unit = "percent")` when violence is present.
+In such scenarios, journalists who wish to highlight the negative aspects of an event likely opt for a frame that directly focuses on violence.
+This notion is supported by the *police violence* model, which indicates that journalists tend to exercise a healthy amount of scepticism when violence unfolds during a protest.
+Although AMEs are not directly comparable across models, it's evident that the average change of probability, `r marg_ind("violent protest", model = "Police Violence", unit = "points")` percentage points, is greater than in the models for both *Law & Order* and *Troublemakers*. 
+Therefore, in this aspect, the model for the use of *Police Violence* is more akin to those for delegitimising frames.
+
+Table 4 further reveals that the negative effect for violence seen in the legitimising model was entirely driven by *cause & grievances*.
+As violence occurs, journalists are less likely to follow the reasoning of protesters, a finding which basically supports what is already common knowledge.
+Interestingly, the model for *righteous struggle* is the only one that shows no significant variance when violence is involved in an event.
+This implies that journalists depict a cause as just regardless of violence occurrence, which seems somewhat hard to believe.
+However, remember that the use of this frame is also independent of other frames' use.
+In other words, even when journalists acknowledge a cause as just, the occurrence of violence still prompts them to concentrate on tactics over the event's message.
+
+The models for individual frames present a somewhat perplexing scenario when it comes to the variable *state repression of peaceful protest*.
+Despite the delegitimising frames model indicating no effect, three out of the four frames in the category do exhibit significant values.
+However, the positive probabilities for *law & order* and *nuisance* seem to be offset by the negative effect for *decay of morals*.
+
+This suggests that while it is `r marg_ind("repression of peaceful p.", model = "Law & Order", unit = "percent")` more likely that *law & order* is used, and `r marg_ind("repression of peaceful p.", model = "Nuisance", unit = "percent")` more likely that *nuisance* is used, the overall delegitimising framing remains stable when protestors are *arrested*, as *decay of morals* is used significantly less frequently (AME: `r marg_ind("violent protest", model = "Decay of Morals")`).
+It appears that when arrests occur, trouble is emphasized, but as the *troublemakers* model shows no significant impact, protestors are not directly held accountable for it.
+
+It's noteworthy that a negative effect exists for *state repression of peaceful protest* in the *decay of morals* model.
+This frame underscores the risk of protestors setting a bad example for others and disrupting the general political consensus.
+One potential explanation could be that journalists favor using a frame that accentuates trouble when protestors are arrested, believing that it adequately covers what they would otherwise mention about morals.
+However, the presence of a significant positive effect on the usage of the *nuisance* frame contradicts this hypothesis.
+
+In the two models for legitimising frames, the narrative from the aggregated model is echoed:
+there's a significant negative effect on the likelihood of coverage using either *cause & grievances* or *righteous struggle*.
+Theoretical expectations of what happens when there's *state repression of peaceful protest* fit even less well for the models of individual frames. 
+The rule seems to be that getting arrested, even during peaceful demonstrations, leads to reduced probabilities of coverage that would benefit a protest.
+The sole exception to this rule is the *decay of morals* frame, which is used less frequently in these instances.
+
+On the outlet level, one of the main questions was if a *newspaper's ideology* or the distance between the newspaper's and protesters' ideology, i.e., the *ideological divide*, matters for reporting --- with the surprising result that neither of them does.
+This is only slightly different for individual frames.
+There is a significant negative effect in the models for *righteous struggle*:
+for articles published in right-leaning outlets, the probability that this frame is used is `r marg_ind("right-wing", model = "Righteous Struggle", unit = "points")` percentage points lower compared to left-leaning outlets.
+This result is little surprising as *righteous struggle* basically highlights the advantages protest has for an issue.
+More surprising is the complete lack of other significant effects of this variable in the other models.
+There is an effect for *law & order*, suggesting that the frame is *less* common in right-leaning outlets.
+Alas, the p-value is 0.09, which is usually not considered significant.
+Overall then, it seems that *newspapers' ideologies* play a small role when it comes to the framing of protest events.
+
+As in the aggregated models, there is no support for the two hypotheses regarding the impact of an *ideological divide* between protest and reporting newspaper.
+Although all of the models for delegitimising frames show p-values just over the significance threshold of $p < 0.05$.
+And defying theoretical expectations again, the *police violence* frame, which highlights the responsibility of the police for clashes, is `r marg_ind("ideological divide: conflict", model = "Police Violence", unit = "percent")` more likely when there is an ideological divide.
+The impression from the last section that the impact of newspaper ideology on protest coverage is incidental instead of systematic is further reinforced by these findings.
+
+Only two of the seven models for the usage of individual frames show any significant effect for **type of newspaper**:
+*righteous struggle* is used `r marg_ind("tabloid newspaper", model = "Righteous Struggle", unit = "percent")` less likely by tabloid newspaper, *police violence* is used `r marg_ind("tabloid newspaper", model = "Police Violence", unit = "percent")` more likely.
+This means that **H6b** was accepted because *righteous struggle* is used more likely in quality media, while the newspaper type has no significant effect on the other legitimising frame.
+All delegitimising frames are used regardless of the type of newspaper, which confirms the finding from the last section.
+
+
+
+
+In terms of **temporal factors**, my findings for the aggregated frames suggest that the *days since the start* of a protest only significantly influence delegitimising frames. 
+This story is repeated in the models for individual frames, providing more evidence that the theory of a *news framing cycle* [@gottliebProtestNewsFraming2015], does not hold up for legitimising framing in the UK:
+instead of becoming more common after the first phase of a protest, *righteous struggle* is less likely to be used over time, while there is no effect for *cause & grievances*.
+
+For two of the four delegitimising frames, however, the theoretical expectation is further supported:
+they are less likely to be used the longer a protest is in the past.
+However, there is no effect for *nuisance* and a positive effect for *decay of morals*.
+This fits @gottliebProtestNewsFraming2015’s argument who suggests not that specifically delegitimising frames are used in the early stages of protest coverage, but that "conflict frames" (p. 7) are employed most often.
+When conflict itself becomes less interesting, it appears that *decay of morals*, which highlights that protesters are a fringe group and set a bad example, gains in importance.
+
+The models for individual frames also provide further evidence that legitimising frames gain in importance over the years.
+Compared to 1992, the use of *cause & grievances* is `r marg_ind("Year of protest (since 1992)", model = "Cause & Grievances", unit = "percent")` more likely in 2017.
+The only delegitimising frame that is influenced by a temporal shift is *law & order*, which becomes less likely to be used as time goes on (AME: `r marg_ind("Year of protest (since 1992)", model = "Law & Order", abs = FALSE)`).
+Interestingly, *Police Violence*, again, aligns with the trend of the legitimising frames, as Table 4 reveals a significant positive effect for the *year* variable (AME: `r marg_ind("Year of protest (since 1992)", model = "Police Violence", abs = FALSE)`).
+
 
 # Discussion and Conclusion
 

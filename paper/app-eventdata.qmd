@@ -130,7 +130,6 @@ Since newspapers sometimes report about the preparations for a protest event bef
 Both variables related to time were normalised by scaling them between 0 and 1 to make effect sizes comparable to the other variables --- which all already range between 0 and 1.
 
 ```{r}
-#| eval: false
 rio::import("../misc/mmp_events_coded_table.csv") %>%
   knitr::kable(format = "latex",
                booktabs = TRUE,
