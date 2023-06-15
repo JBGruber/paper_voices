@@ -133,21 +133,16 @@ hyp <- function(num) {
   paste(unlist(hs), collapse = ": ")
 }
 
-clear_var_df <- tibble::tribble(
-  ~pattern, ~replacement,
-  "protesterdemand2anti-war", "goal: anti-war",
-  "protesterdemand2labour protests", "goal: labour protests",
-  "protesterdemand2police", "goal: police",
-  "protesterdemand2social-issue protests", "goal: social-issue",
-  "protesterviolence", "violent protest",
-  "staterepression_peaceful", "repression of peaceful p.",
-  "np_ideologyright", "right-wing",
-  "np_typetabloid", "tabloid newspaper",
-  "ideo_gulfconflict", "ideological divide: conflict",
-  "ideo_gulftossup", "ideological divide: ambiguous",
-  "days_since_start", "days from start",
-  "year", "Year of protest (since 1992)"
-)
+clear_var_df <- data.frame(pattern = c("protesterdemand2anti-war", "protesterdemand2labour protests", 
+                                       "protesterdemand2police", "protesterdemand2social-issue protests", 
+                                       "protesterviolence", "staterepression_peaceful", "np_ideologyright", 
+                                       "np_typetabloid", "ideo_gulfconflict", "ideo_gulftossup", "days_since_start", 
+                                       "year"), 
+                           replacement = c("goal: anti-war", "goal: labour protests", 
+                                           "goal: police", "goal: social-issue", "violent protest", "repression of peaceful p.", 
+                                           "right-wing", "tabloid newspaper", "ideological divide: conflict", 
+                                           "ideological divide: ambiguous", "days from start", "Year of protest (since 1992)"
+                           ))
 
 # rename variables (or anything else) for plots and tables
 clear_var_names <- function(x, pattern_df = clear_var_df, factor = TRUE) {
