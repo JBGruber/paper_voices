@@ -15,6 +15,13 @@ jbg_pal <- function(n, sel) {
   }
 }
 
+scale_fill_jbg <- function(...) {
+  discrete_scale(aesthetics = "fill", scale_name = "jbg", palette = jbg_pal, ...)
+}
+scale_colour_jbg <- function(...) {
+  discrete_scale(aesthetics = "colour", scale_name = "jbg", palette = jbg_pal, ...)
+}
+
 custom_spell_check <- function(files, dict = "dictionary.dic") {
   
   misspellings <- spelling::spell_check_files(
@@ -124,6 +131,39 @@ hyp <- function(num) {
   hs <- hypotheses[grepl(num, hypotheses$Nr), 1:2]
   hs$Nr <- paste0("**", hs$Nr, "**")
   paste(unlist(hs), collapse = ": ")
+}
+
+clear_var_df <- tibble::tribble(
+  ~pattern, ~replacement,
+  "protesterdemand2anti-war", "goal: anti-war",
+  "protesterdemand2labour protests", "goal: labour protests",
+  "protesterdemand2police", "goal: police",
+  "protesterdemand2social-issue protests", "goal: social-issue",
+  "protesterviolence", "violent protest",
+  "staterepression_peaceful", "repression of peaceful p.",
+  "np_ideologyright", "right-wing",
+  "np_typetabloid", "tabloid newspaper",
+  "ideo_gulfconflict", "ideological divide: conflict",
+  "ideo_gulftossup", "ideological divide: ambiguous",
+  "days_since_start", "days from start",
+  "year", "Year of protest (since 1992)"
+)
+
+# rename variables (or anything else) for plots and tables
+clear_var_names <- function(x, pattern_df = clear_var_df, factor = TRUE) {
+  out <- stringi::stri_replace_all_fixed(
+    x,
+    pattern = pattern_df$pattern,
+    replacement = pattern_df$replacement,
+    vectorise_all = FALSE
+  )
+  if (factor) {
+    out <- fct_relevel(
+      out, 
+      rev(pattern_df$replacement[pattern_df$replacement %in% out])
+    )
+  }
+  out
 }
 
 # test and update bib file

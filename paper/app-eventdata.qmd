@@ -1,7 +1,133 @@
 ## Selected and Recoded protest events {#app-eventdata .appendix}
 
 Events were filtered from @ClarkMMPdata2019 to include only protests in the UK.
-The table contains the ideology variable that was added through annotation of events.
+Most variables in the raw data were either enriched or recoded before the main analysis.
+
+The first event-level variable, *Protest Goal*, originally contained eight different demands from protesters.
+If a protest had more than one demand, @ClarkMMPdata2019 coded multiple goals for the same protest accordingly.
+The specific goals coded in the MMP data were recoded to achieve a better fit with the literature reviewed in Section \@ref(sec:factors).
+Table \@ref(tab:goalsrecode) shows the codes used by @ClarkMMPdata2019 on the left and the respective codes used here on the right.^[
+Specifically, the categories used here are *anti-war*, *labour*, *police brutality*, *social-issue* and *political* protests.
+]
+To obtain the *anti-war* coding, protester identity, which is another code used in the MMP data, was used in addition to the protest demand.
+Table \@ref(tab:goalsdist) shows how often each demand was coded.
+
+```{r goalsrecode}
+tibble::tribble(
+  ~Code, ~"Recoded to",
+  "political behavior, process", "anti-war (also based on protester identity)",
+  "labor wage dispute", "labour",
+  "police brutality", "police brutality",
+  "land farm issue", "social-issue",
+  "price increases, tax policy", "social-issue",
+  "social restriction", "social-issue",
+  "political behavior, process", "political",
+  "removal of politician", "political"
+) %>%
+  custom_df_print(caption = "Recoded Protester Demands")
+```
+
+```{r goalsdist}
+rio::import("../misc/protesterdemand_table.csv") |>
+  custom_df_print(caption = "Distribution of Protester Demands")
+```
+
+The variable *violence* is a proxy for protesters' tactics.
+As described above, tactics are usually operationalised by measuring if protesters broke the law and if they engaged in violence.
+@ClarkMMPdata2019, however, only provide dichotomous data, indicating whether protesters engaged in violence against the state in any form (1) or not (0).
+For the subset of the data, 3,431 of the events were coded as peaceful while violence
+occurred during 2,208 protests ($\bar{x} = 0.39$).
+
+As mentioned in Section \@ref(sec:eventdata), a protest's goal and violence are prone to be affected by endogeneity, as @ClarkMMPdata2019 coded their data based on news reports, which is also the basis for the dependent variable here.
+It needs to be noted that the reports used for coding were removed before calculating the models.^[
+Specifically, the MMP data contains a text snippet from the article(s) on which the coding was based. These articles were removed from the database. Additional robustness checks were also performed and are described later on.
+]
+Nevertheless, the results regarding the variables *protest goal* and *violence* should be seen with some caution.
+
+The variable *state repression of peaceful protest* was constructed to reflect the occurrence of a specific case outlined by @WasowSeeding2020:
+when the state uses repression against peaceful protesters.
+In this case, the expectation is that there will be more legitimising framing in the coverage of a protest event.
+The variable *protester violence* was used again to assess the second condition for this case.
+For the first condition, the variable *stateresponse* in the MMP dataset was employed.
+Of the five coded responses, "arrests" or "beatings" were interpreted as being repressive.
+When one of these two was employed by the state during peaceful protests, *state repression of peaceful protest* was coded as 1, otherwise, it was 0 ($\bar{x} = 0.46$).
+Figure \@ref(fig:stateresponse) shows the percentage of violent and peaceful protests facing different kinds of state responses in the subset of the MMP data.
+One problem becomes apparent in this:
+the data for the UK did not contain a single case in which beatings occurred during peaceful protests.
+Therefore, in this case, *state repression of peaceful protest* reflects arrests of peaceful protesters.
+This is specific to the UK, data whereas beatings of peaceful protesters were recorded in other countries, including other countries in Western Europe.
+
+```{r stateresponse, fig.height=3, fig.width=6, fig.cap="Percent of Violent and Peaceful Protests Facing Different Kinds of State Responses"}
+rio::import("../misc/protesterviolence_table.csv") %>%
+  ggplot(aes(x = pct, y = as.factor(protesterviolence), fill = stateresponse2)) +
+  geom_col() +
+  scale_x_continuous(labels = scales::percent) +
+  scale_fill_jbg() +
+  labs(x = NULL, y = NULL, fill = NULL) +
+  theme(panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        legend.position = "none") +
+  annotate(geom = "text", x = 0.10, y = 2.9, label = "ignore",
+           hjust = "right", colour = "#606367", family = "Times") +
+  annotate(
+    geom = "curve", x = 0.105, y = 2.9, xend = 0.2, yend = 2.5,
+    curvature = -.3, colour = "#606367"
+  ) +
+  annotate(geom = "text", x = 0.4, y = 2.9, label = "accomodation",
+           hjust = "right", colour = "#606367", family = "Times") +
+  annotate(
+    geom = "curve", x = 0.405, y = 2.9, xend = 0.5, yend = 2.5,
+    curvature = -.3, colour = "#606367"
+  ) +
+  annotate(geom = "text", x = 0.68, y = 2.9, label = "crowd dispersal",
+           hjust = "right", colour = "#606367", family = "Times") +
+  annotate(
+    geom = "curve", x = 0.685, y = 2.9, xend = 0.71, yend = 2.5,
+    curvature = -.2, colour = "#606367"
+  ) +
+  annotate(geom = "text", x = 0.87, y = 2.9, label = "arrests",
+           hjust = "right", colour = "#606367", family = "Times") +
+  annotate(
+    geom = "curve", x = 0.875, y = 2.9, xend = 0.93, yend = 2.5,
+    curvature = -.3, colour = "#606367"
+  ) +
+  annotate(geom = "text", x = 0.9, y = 0.2, label = "beatings",
+           hjust = "right", colour = "#606367", family = "Times") +
+  annotate(
+    geom = "curve", x = 0.905, y = 0.2, xend = 0.95, yend = 0.5,
+    curvature = .3, colour = "#606367"
+  ) +
+  coord_cartesian(clip = 'off')
+```
+
+
+The three outlet-level variables were coded based on the literature on the characteristics of the UK newspapers.
+Specifically, newspaper outlets in the UK are divided into right-leaning (i.e., closer to the Conservative party) and left-leaning (i.e., closer to the Labour party), as well as between tabloids and broadsheets.
+The newspaper outlets included in the sample were coded as noted in Table \@ref(tab:outlets).
+
+```{r}
+ideo_count_table <- rio::import("../misc/ideo_count_table.csv")
+ideo <- function(l, type = "pct") {
+  ideo_count_table %>%
+    filter(ideology == l) %>%
+    select(matches(type)) %>%
+    pull()
+}
+```
+
+For the variable *ideological divide*, additional manual coding was necessary:
+An ideological divide is present when the newspaper ideology is right-leaning and the protest ideology is coded as left --- or the other way around.
+The newspaper ideology is known; however, I had to code the ideology of the protest myself based on the information in the MMP dataset and in other articles about an event.^[See Appendix for the specific coding.]
+Note, that since "right"- and "left"-leaning are concepts which are often disputed, I tried to assess whether a protest aligns closer with the main UK right-wing or left-wing party (i.e., closer to Labour or Conservative politics), as this is how British newspapers are usually divided [@kuhnPoliticsMediaBritain2007].
+
+The table below contains the ideology variable that was added through annotation of events.
+
+Finally, I used two *time-bound* variables: *days from start* and *year of protest*.
+The MMP dataset provides the first day of a protest.
+*Days from start* is then simply the number of days between the day a protest started and the day when an article was published.
+Since newspapers sometimes report about the preparations for a protest event before the actual date, the variable can have negative values.
+*Year of protest* indicates when a protest started, rather than the year in which reports about it were published.
+Both variables related to time were normalised by scaling them between 0 and 1 to make effect sizes comparable to the other variables --- which all already range between 0 and 1.
 
 ```{r}
 #| eval: false

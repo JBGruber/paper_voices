@@ -5,7 +5,10 @@ title: |
     [^1]: **Draft version. Please do not circulate or cite without permission.**
 subtitle: "Making sense of framing patterns in protest coverage"
 format:
-  aft-pdf: default
+  aft-pdf:
+    include-in-header:
+      - text: |
+          \usepackage{siunitx}
   aft-html: default
 author:
   - name: Johannes B. Gruber
@@ -32,6 +35,9 @@ knitr::opts_chunk$set(
 source("../misc/functions.R")
 library(tidyverse); theme_set(theme_minimal())
 library(kableExtra)
+library(texreg)
+library(margins)
+library(grid)
 ```
 
 # Abstract
@@ -261,7 +267,7 @@ To test these hypotheses, I combine two datasets.
 The first was created through content analysis and contains measures of framing in reports about a large number of events in UK mainstream newspapers from 1992 to the end of 2017.
 The second one contains information about protest events.
 These data are matched and the hypotheses are tested through multilevel logistic regression models.
-@tbl-variables shows the dependant and independant variables of these models --- one for the presence or absense of each frame.
+@tbl-variables shows the dependant and independent variables of these models --- one for the presence or absence of each frame.
 How this data was sourced is explained below.
 
 ```{r variables}
@@ -300,7 +306,7 @@ Secondly, suitable data from UK newspapers were already archived and digitally a
 @tbl-outlets presents the selection of newspaper outlets, strategically chosen to contain variance on the two important factors: 
 ideology and type of newspaper in the UK
 Additionally the selection was made to include the outlets with the highest circulation figures.
-I retrieved articles from LexisNexis, utilizing the keywords "protest" and "demonstration" and several several misspellings.
+I retrieved articles from LexisNexis, utilizing the keywords "protest" and "demonstration" and several misspellings.
 A pilot ensured the comprehensiveness of these keywords by testing a range of synonyms like "march", "rally", or "direct action", which, however, did not yield any additional relevant articles.
 The articles underwent a processing phase using the R-package LexisNexisTools [@gruberlnt2021] which consisted of removing duplicate entries, items discussing non-domestic protests, and false positives.
 To maintain theoretical integrity, I opted to limit our data to domestic protests, as studies have indicated notable differences in the coverage of non-domestic protests [@boyleAdherenceProtestParadigm2012].
@@ -340,10 +346,32 @@ outlets |>
 
 This dataset was coded for framing of protest reporting.
 Specifically, I re-use the measurement of framing in newspaper reports on protests and demonstrations from @gruberTrouble2023.
-In short, frames were identified by coding the frame elements found in @entman1993's definition of framing (problem definition, causal interpretation, moral evaluation, and treatment recommendation) in 500 randomly selected articles and combining the coded elements to frames using factor analysis.
+In short, frames were identified by coding the frame elements found in Entman's [-@entman1993] definition of framing (problem definition, causal interpretation, moral evaluation, and treatment recommendation) in 500 randomly selected articles and combining the coded elements to frames using factor analysis.
 This results in one binary variable per frame, which takes the value 1 if a frame is present and 0 otherwise.
 Each article can contain several frames, or none.
 After training supervised machine learning models trained on the manually coded random sample, all remaining articles were coded using these models.
+
+@fig-frames show the seven identified frames and how often they were coded in news articles.
+The majority of them were determined to delegitimise protest using many of the same patterns identified in the *protest paradigm* literature.
+They portray protesters as a fringe group of freaks who disturb the social norms(Decay of Morals), highlight the violence caused by protesters (Troublemakers), suggest that protest is a bothersome interruption of everyday activities (Nuisance), or focus on police actions to reinstate public order (Law & Order).
+Two legitimising frames, on the other hand, describe the main topic and cause of a protest event (Cause & Grievances) or highlight the accomplishments of the protesters for a just cause (Righteous Struggle).
+The remaining frame, Police Violence can neither be said to be legitimising nor delegitimising, highlight the shortcomings of this dichotomy [@harlowNewParadigm2023].
+The frame focuses on violence, which is usually assumed to distract from protest demands and hence delegitimising.
+Contrary to most theoretical expectations, however, the frame portrays police as responsible for violence.
+This could lead to more interest in and sympathy towards a protest goal.
+
+```{r}
+#| label: fig-frames
+#| fig-cap: Number of Articles in Which Each Frame Is Present
+readRDS("../misc/frame_distribution.rds") %>%
+  ggplot(aes(y = frame, x = n, fill = super)) +
+  geom_col() +
+  scale_fill_manual(values = jbg_pal(sel = c("darkred", "darkblue", "black"))) +
+  scale_x_continuous(labels = scales::comma) +
+  labs(x = NULL, y = NULL, fill = NULL) +
+  theme(legend.position = "bottom",
+        panel.grid.minor = element_blank())
+```
 
 <!-- In its most advanced, and probably broadest, conceptualisation, @mcleodSocialControlSocial1999 state that the *protest paradigm* combines *unfavourable story framing*, *reliance on official sources and official definitions* and the *invocation of public opinion* (e.g., the protesters are a minority). -->
 <!-- "Protest coverage research needs to move beyond the dichotomous positive versus negative framing to account for the ways in which violence can in fact be a legit- imate way to attract media attention and legitimize protesters’ grievances and tactics (Cammaerts 2013; Drury and Reicher 2018; Saavedra and Drury 2019)" -->
@@ -354,7 +382,7 @@ This article tests the relation between framing of protest and eight independent
 *Protest Goal*, *Protester Violence*, *State Repression*, *Newspaper Ideology*, *Newspaper Type*, *Ideological Divide*, *Days Since Start*, and *Year of Protest*.
 *Newspaper Ideology* were obtained through the meta information of the coded news articles *Newspaper Type*.
 For all other variables the *Mass Mobilization Project*'s [@ClarkMMPdata2019] dataset on protest events was employed.
-This dataset was chosen for pratical reasons as it contains the variables neccesary and covers the chosen time frame (1992-2017).
+This dataset was chosen for practical reasons as it contains the variables necessary and covers the chosen time frame (1992-2017).
 @ClarkMMPdata2019 use the keywords "Protest", "Demonstration", "Riot", and "Mass Mobilization" on the *LexisNexis* newspaper archive, selecting "All News" as the source.
 For the selected time frame in the UK, the *Mass Mobilization Project* lists 471 events between 1992 and the end of 2017, as shown in @fig-mmpyear.
 
@@ -382,36 +410,156 @@ then I used the variables "Protest Locations", "Protest Group Identity" and "Pro
 I then used keywords to filter the articles selected in the first stage:
 articles were discarded if they did not feature at least one of the keywords.
 This selection was manually validated and overlaps between events were separated by hand.
-
-For the variable *ideological divide*, additional manual coding was necessary:
-An ideological divide is present when the newspaper ideology is right-leaning and the protest ideology is coded as left --- or the other way around.
-The newspaper ideology is known; however, I had to code the ideology of the protest myself based on the information in the MMP dataset and in other articles about an event.^[See Appendix for the specific coding.]
-Note, that since "right"- and "left"-leaning are concepts which are often disputed, I tried to assess whether a protest aligns closer with the main UK right-wing or left-wing party (i.e., closer to Labour or Conservative politics), as this is how British newspapers are usually divided [@kuhnPoliticsMediaBritain2007].
+Overall, 5,639 articles could be matched with the 471 events from the database.
+Most independent variables in the raw data were either enriched or recoded before the main analysis [see Appendix].
 
 Using the variables listed in @tbl-variables, I fitted multilevel logistic regression models (one for each frame) to establish the influence of the different factors on reporting.
 Specifically, I used the *lme4* package in R [@lme4].
-This is appropriate as the dependent variables for all models are binary and the articles published in the same newspaper and in the same year effectivly consitute panel dataset since observations must be seen as nested and not independent.
+This is appropriate as the dependent variables for all models are binary and the articles published in the same newspaper and in the same year effectively constitute a panel dataset since observations must be seen as nested and not independent.
 It was considered to use newspapers as the second level variable as unobserved and unobservable heterogeneity is most likely present between outlets.
 However, the number of newspapers in the dataset (eight) is considered problematically low for fitting a valid multilevel model [e.g., @bryanmultilevel2016].
 Therefore, I used newspaper-year as the Level 2 variable ($n = 180$).
 <!-- That means that *The Guardian*, for example, is treated as a different second-level case in 1992, 1993, 1994 and so on.
 This makes sense as the last chapter has shown that there is a difference in reporting between all newspaper over time. -->
-
-
+I assessed whether adding the newspaper-year level increases or decreases model fit.
+To compare models, the Akaike information criterion (AIC) and the Bayesian information criterion (BIC) are calculated and compared using Analysis Of Variance (ANOVA) tests.
+The lower the AIC and BIC, the better the model fits the data.
+Both AIC and BIC are always considerably lower when including the second level into the modelling.
+The p-values suggest that including the random effect improves all models significantly.
+I examined if adding a newspaper-year level improves model fit.
+The model comparisons were done using AIC, BIC, and ANOVA tests.
+The inclusion of the second level in modelling significantly lowers both AIC and BIC, and the p-values indicate a significant improvement in all models.
 
 # Results
+
+Discussion of results is divided into two steps.
+I first refer to the frames aggregated into legitimising and delegitimising to test the hypotheses set up above.
+This, however, neglects some of the details revealed through the individual seven frames.
+
+```{r}
+#| results: asis
+models <- readRDS("../misc/models.Rds")
+model_logit_dele_mlm <- models$model_logit_dele_mlm
+model_logit_le_mlm <- models$model_logit_le_mlm
+
+if (is_latex()) {
+  texreg(
+    c(model_logit_dele_mlm, model_logit_le_mlm),
+    caption = "Regression Results for Aggregated Frames",
+    custom.model.names = c("Delegitimising Frames", "Legitimising Frames"),
+    custom.coef.names = c(
+      "(Intercept)",
+      "goal: anti-war",
+      "goal: labour protests",
+      "goal: police",
+      "goal: social-issue",
+      "violent protest",
+      "repression of peaceful p.",
+      "right-wing",
+      "tabloid newspaper",
+      "ideological divide: conflict",
+      "ideological divide: ambiguous",
+      "days from start",
+      "year of protest"
+    ),
+    groups = list("Event-Level Factors" = 2:7, "Outlet-Level Factors" = 8:11, "Time Bound Factors" = 12:13),
+    digits = 3,
+    stars = c(0.001, 0.01, 0.05, 0.1),
+    symbol = "+",
+    #scalebox = 1,
+    siunitx = TRUE,
+    single.row = FALSE, # True looks better here but much worse on the other. To keep it consistent
+    booktabs = TRUE,
+    label = "tab-regtwoframes",
+    use.packages = FALSE
+  )
+} else {
+  data.frame(placeholder = "In the PDF, the table is around here") %>%
+    custom_df_print(caption = "Regression Results for Aggregated Frames")
+}
+```
+
+```{r}
+model_margins <- readRDS("../misc/model_margins.Rds")
+twofram_marg <- list(model_margins$model_logit_dele_mlm,
+                     model_margins$model_logit_le_mlm) %>%
+  lapply(function(m) {
+    summary(m) %>%
+      as_tibble() %>%
+      filter(p < 0.05) %>%
+      mutate(model = colnames(m)[1])
+  }) %>%
+  bind_rows() %>%
+  mutate(factor = clear_var_names(factor))
+
+marg <- function(...) {
+  marg_default(df = twofram_marg, ...)
+}
+```
+
+Table 3 shows the models for the legitimising and delegitimising frame aggregates.
+Since raw values of coefficient estimates are less useful in a logisitc regression, I additionally I additionally provide Average Marginal Effects (AME) in Figure @fig-margtwoframes.
+Holding all other covariate values constant, AMEs express here by how much the probability of using a frame increases or decreases *on average*, if a dependent variable changes by 1 in their respective units.
+AMEs were calculated using the *margins* package in R [@marginspackage].
+
+```{r}
+#| label: fig-margtwoframes
+#| fig-cap: Average Marginal Effects for Significant Variables in Aggregated Frame Models
+plot <- twofram_marg %>%
+  ggplot(aes(x = AME, y = factor, xmin = lower, xmax = upper)) +
+  geom_point(colour = "#939597") +
+  geom_pointrange(colour = "#939597") +
+  geom_vline(xintercept = 0, linetype = "dashed", colour = "#F65058") +
+  facet_wrap(~model, ncol = 1, scales = "free_y", strip.position = "top") +
+  # facet_grid(rows = vars(model), scales = "free_y", space = "free_y")
+  labs(y = NULL, x = "Average Change in Probability of Frame Usage") +
+  theme(strip.background = element_rect(
+    fill = "#EEEFF1",
+    colour = NA)
+  )
+
+fcsts <- twofram_marg %>%
+  count(model) %>%
+  pull(n)
+
+margtwoframes <- ggplotGrob(plot)
+ind <- margtwoframes$layout$t[grepl("panel", margtwoframes$layout$name)]
+for (i in seq_along(ind)) {
+  margtwoframes$heights[[ind[i]]] = unit(fcsts[i], "null")
+}
+grid.newpage()
+grid.draw(margtwoframes)
+```
+
+Focusing on **protest goals** first.
+Table 3 analyzes protest goals compared to the reference, political protests.
+Hypothesis H1a, proposing a hierarchy of social struggle that influences the use of *delegitimising* frames, is unsupported:
+no significant effect is found on the use of these frames among different goals.
+In other words, delegitimising frames are used similarly across all goals, refuting a social struggle hierarchy in UK newspaper coverage.
+
+In contrast, Hypothesis H1b, regarding a social struggle hierarchy influencing *legitimising* framing, is partially supported.
+Labour protests (AME: 6%) and social-issue protests (AME: 16%) are more likely to receive legitimising coverage than political protests.
+For instance, a typical labour issue, like a protest for police salaries, has a 6% higher chance of being reported with legitimising framing, and a protest against tuition fees (a social issue) is 16% more likely to be legitimised compared to political protests.
+However, anti-war and police protests show no significant difference from the reference category.
+H1b can this be accepted only partially:
+protests with certain goals are more likely to be covered with a legitimising frame than others.
+However, the specific hierarchy in the UK appears different from what has been found previously for the US context [@kilgoHierarchy2019].
+Specifically, protests against police brutality have the least chance of legitimising coverage.
+Then come political protests, anti-war protests, labour protests, and finally, social-issue protests with the highest probability of legitimising framing.
+However, there is uncertainty in this hierarchy as political and anti-war protests show nearly identical probabilities of legitimising framing.
+
 
 # Discussion and Conclusion
 
 This study is not without limitations.
 Firstly, it is limited in that it only focuses on newspapers and only addresses the state of protest coverage in the UK.
-Some of the interroigated factors for protest coverage might be more or less influential in other forms of media and in oither contexts.
+Some interrogated factors for protest coverage might be more or less influential in other forms of media and in other contexts.
 
 Secondly, the employed *Mass Mobilization Project*'s [@ClarkMMPdata2019] dataset on protest events introduces endogeneity concerns to the study as the data was collected from media reports.
-As the dependent variable is media reporting patterns, the fact that some of the independent variables are sourced from this reporting might create a feedback loop complicating our ability to separate cause and effect.
-This potentially affects the measurment of the variables *Protest Goal*, *Protester Violence* and *State Repression*.
-However, this is risk is currently unavoidable as independent data does not exists.
-All of the exiting databases that I could have used alternativly suffer from the same problem, while media-independent information about events is scarce and might be equally biased:
+As the dependent variable is media reporting patterns, the fact that some independent variables are sourced from this reporting might create a feedback loop complicating our ability to separate cause and effect.
+This potentially affects the measurement of the variables *Protest Goal*, *Protester Violence* and *State Repression*.
+However, this is risk is currently unavoidable as independent data does not exist.
+All the exiting databases that I could have used alternatively suffer from the same problem, while media-independent information about events is scarce and might be equally biased:
 @mccarthyElectronicPrintMedia1999, for example, use police records, which arguably suffer from other biases.
 To set this in context, however, research using media-independent information about events has shown that publishing outright false information about an event is relatively rare [@mccarthyElectronicPrintMedia1999].
 Reports rather omit information or misrepresent what happened during an event through framing [@earlUseNewspaperData2004] --- like emphasising, for example, violence even when violence was only a very small aspect of what happened.
