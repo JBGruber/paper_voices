@@ -1,9 +1,16 @@
 ---
-title: |
-    Whose voices are heard? [^1]
-
-    [^1]: **Draft version. Please do not circulate or cite without permission.**
+title: "Whose voices are heard?"
 subtitle: "Making sense of framing patterns in protest coverage"
+abstract: |
+  Existing research indicates that when mainstream news media report about demonstrations, protesters often face delegitimising coverage that focuses on, for example, clashes with the police or the appearance of protesters instead of their message.
+  Recent studies have also found, however, that media treatment differs along several features of protest events.
+  In this study, I examined the impact of these features through a large-scale automated framing analysis of UK protest events from 1992 to 2017, complemented by data from the Mass Mobilization Project (MMP).
+  My findings highlight four main determinants influencing the use of legitimising or delegitimising framing in protest news coverage:
+  (1.) Violence: Protests involving violence receive more delegitimising coverage and less legitimising coverage.
+  (2.) Protest goals: The objectives of a protest significantly affect the nature of its coverage, although the relationships between frames and goals are complex. Notably, goals play a larger role in legitimising framing.
+  (3.) Outlet characteristics: The type and ideology of a news outlet also impact coverage, though to a lesser extent than anticipated.
+  (4.) Timing: More recent reports and those published a significant time after the event's onset are more likely to contain legitimising framing.
+
 format:
   aft-pdf:
     include-in-header:
@@ -11,20 +18,23 @@ format:
           \usepackage{siunitx}
           \usepackage{graphicx}
           \usepackage{rotating}
-  aft-html: default
-author:
-  - name: Johannes B. Gruber
-    affiliations:
-      - name: Vrije Universiteit Amsterdam
-        department: Department of Communication Science
-    orcid: 0000-0001-9177-1772
-    email: j.b.gruber@vu.nl
-    url: https://www.johannesbgruber.eu/
+    filters: 
+      - "_extensions/andrewheiss/wordcount/citeproc.lua"
+      - "_extensions/andrewheiss/wordcount/wordcount.lua"
+  aft-html: 
+    citeproc: false
+    filters: 
+      - "_extensions/andrewheiss/wordcount/citeproc.lua"
+      - "_extensions/andrewheiss/wordcount/wordcount.lua"
 date: today
 filters:
   - abstract-section
-keywords: [protest paradigm, media framing, social movements, news reporting, content analysis]
-reference-section-title: References
+keywords:
+    - "protest paradigm"
+    - "media framing"
+    - "social movements"
+    - "news reporting"
+    - "content analysis"
 bibliography: references.bib
 execute:
   echo: false
@@ -45,86 +55,66 @@ library(margins)
 library(grid)
 ```
 
-# Abstract
-
-```{r article, child = "abstract.md"}
-```
-
-# Introduction
+<!-- # Introduction -->
 
 Protest is a fundamental democratic tool for citizens to voice dissent about issues in society.
 In modern democracies, however, citizens usually only hear about protest through mass media.
-And this hearing consists not only of the audience becoming aware of a protest event, but ideally should also involve them receiving the information to understand the underlying issue and the causes for the public dissent.
+And this hearing consists not only of the audience becoming aware of a protest event, but ideally should also involve them receiving the information to *understand* the underlying issue and the causes for the public dissent.
 
-> Which factors explain the choice of frames by the news media when covering protest events?
-
-While the concept of testing factors which condition protest coverage is not new [e.g., @boyleAdherenceProtestParadigm2012; @kilgoHierarchy2019; @leeTriggeringProtestParadigm2014], the set of variables presented in this section is novel and, to my knowledge, the most complete so far.
-
-# Protest Coverage in News Media
-
-## The Protest Paradigm
-
-Most of the literature concerning protest coverage in news media uses the *protest paradigm* concept to explain a recurring pattern in news about demonstrations:
+However, most of the literature concerning protest coverage in news media points to a phenomenon referred to as *protest paradigm* to explain a recurring patterns in news about demonstrations:
 the media focus on crime, clashes with police and the spectacle surrounding a protest or the protesters themselves and their looks, demographics or occupation, while neglecting to explain *why* protesters spent time and resources on organising and participating in a street demonstration in the first place.
 The *protest paradigm* explains this by presuming a mental catalogue, supposedly common among journalists, which indicates to them "where to look (and where not to look), and informs them about what to discover" [@chanJournalisticParadigmsCivil1984, p. 187].
-The *protest paradigm* is thus related to the literature on the sociology of newsmaking, which observed that news workers are "routinizing the unexpected" [@tuchmanMakingNewsDoing1973, p. 110] by creating practical and effective procedural rules, routines and mental catalogues of news story themes to cope with the onslaught of new events.
+The *protest paradigm* is thus closely related to the literature on the sociology of newsmaking, which observed that news workers are "routinizing the unexpected" [@tuchmanMakingNewsDoing1973, p. 110] by creating practical and effective procedural rules, routines and mental catalogues of news story themes to cope with the onslaught of new events.
 
 Most of the focus in previous studies has been spent on the dangers of this routinised reporting.
 This is due to the normative core of the *protest paradigm*:
-by regularly focusing on the action itself, rather than the sometimes more elusive and complicated message [@smithProtestAgendaBuilding2001] the *protest paradigm* could lead to delegitimisation and marginalisation of protest events, protest movements, or protest as a political resource [@mcleodSocialControlSocial1999].
+by regularly focusing on the action itself, rather than the sometimes more elusive and complicated message [@smithProtestAgendaBuilding2001] reporting shaped by the *protest paradigm* could lead to delegitimisation and marginalisation of protest events, protest movements, or protest as a political resource [@mcleodSocialControlSocial1999].
 
-Evidence for the *protest paradigm* has been found in most studies that analysed news coverage of protests over the years [for a systematic overview see @gruberTrouble2023].
-However, more recent work has also asked *how common* delegitimising devices of the *protest paradigm* are.
+*Some* evidence for the *protest paradigm* has been found in most studies that analysed news coverage of protests over the years [for a systematic overview see @gruberTrouble2023].
+However, more recent work has also asked *how common* delegitimising devices of the *protest paradigm* are, as nobody can deny that the press at least occasionally discusses the socio-political issues protesters try to rise awareness for --- hence *legitimising their actions*.
 While it seems fairly clear that *some* coverage follows routinized dismissive patterns, this might not be that damaging to protests as long as substantive information about causes and grievances are still available elsewhere.
 Studies following this logic suggest that the delegitimising aspects of the *protest paradigm* might occur in reporting more conditionally [@kilgoHierarchy2019; @woutersReportingDemonstrationsEpisodic2015], and less frequently over time [@gruberTrouble2023; @araizaHandsDontShoot2016; @kyriakidouIndignadosProtestsSpanish2017].
 
-## What Drives Protest Coverage? {#sec:factors}
+The current study follows the footsteps of this line of research by asking:
 
-This moves the conditions under which the delegitimising aspects of the *protest paradigm* are applied into focus.
-How these factors might shape reporting in practice is provided, for example, by @tenenboimweinblattProducingProtestNews2014, who studied in in-depth interviews how journalists perceived their hand in framing a social protest in Israel.
-At first, individual level factors, namely the strong indetification of journalists with the sociodemographically protesters, who belonged to a similar socio-economic class, and their message, which criticised the same issues reporters faced in their daily lives, resulted in a sympathetic stance and more supportive coverage.
-Yet, journalists noted that this identification and sympathy for the protest demands collided with factors such as professional and procedural norms, which kept their reporting "objective" with less supportive coverage than some had hoped for.
-As events progressed, substantial economic backlash from investors and advertisers, who felt targeted by protests, turned the table.
-Suddenly economic and organisational demands became more noticeable to journalists.
-In effect, journalists ceased to portray the protests in a favourable light after initial support.^[see also @shultzinerjournalistsprotest2018 and @shoemakerMediatingMessage21st2014 for a more general theory on factors that shape news.]
-<!-- This is in line with @curranPowerResponsibilityPress2007, who have argued that the historical control of the press by political actors has been replaced over time by market forces, which they believe to be even more effective in eliminating radical ideas from public discourse. -->
+> **RQ: Which factors explain the choice of frames by the news media when covering protest events?**
 
-What this example makes clear is that there is rarely just one factor that shapes reporting and that in order to explain reporting, the range of included factors should be as complete as possible.
-The literature has identified several of these factors that can be broadly divided in event-level, outlet-level and time-related factors.[^Similar to how @shoemakerMediatingMessage21st2014 divide influences on factors believed to shape the news into levels ordered from micro to macro.]
-Most of these studies measure a dividie between *delegitimising* and *legitimising* protest coverage.
-Although this dichotomy is a little simplistic [@harlowNewParadigm2023] it serves the purpose of formulating theoretical expectations here and to make it easier to discuss previous findings.
+It contributes to the literature in two ways 
+Firstly, while this is not the first study to test factors which condition protest coverage[e.g., @boyleAdherenceProtestParadigm2012; @kilgoHierarchy2019; @leeTriggeringProtestParadigm2014], the set of variables presented here is novel and, to my knowledge, the most comprehensive so far.
+The first section of the article discusses which mechanisms and protest features scholars in the *protest paradigm* tradition have hypothesised to drive coverage and distills them into seven event, outlet and time based factors.
 
-<!-- Note that at this stage, it is unknown which frames the analysis will reveal, making it impossible to specify which frames might correlate with which factors.
-Many previous studies worked with the dichotomy of coverage adhering to the *protest paradigm* and coverage that is more supportive of a protest goal --- which I will call *delegitimising* and *legitimising* coverage in the following.
-As it is expected that most frames can be placed within this broad dichotomy, the hypotheses in this section capture the expected relation between factors and a potential set of frames that are, most likely, legitimising or delegitimising.
-In other words, while the analysis allows the revelation of more fine-grained frames, this section will discuss the theoretical expectations for relationships between the factors with legitimising and/or delegitimising coverage of protest.
-However, the dichotomy of legitimising and delegitimising coverage is unlikely to tell the entire story.
-What aspects of an event do news highlight and which do they omit specifically?
-Depending on the specific framing, the degree to which reports legitimise or delegitimise a protest cause could vary substantially.
-So while the described dichotomy is useful to discuss factors that drive reporting, the ultimate goal is to measure the influence these factors might have on the usage of specific frames. -->
+Secondly, while previous studies often followed a dichotomy where coverage is divided into reporting that is either legitimising or delegitimising a protest action, this article tries to disentangle effects on the usage of different frames in reporting.
+The main frames of protest reporting are identified and measured in a dataset that spans newspaper coverage of all protest events in the United Kingdom between 1992 and the end of 2017 as identified in the *Mass Mobilization Project*'s [@ClarkMMPdata2019] (*N = 27,496 newspaper articles about 471 events*).
+Using a set of multilevel logistic regression models, the article proceeds to test which of the factors from the literature explain why some frames are used more (or less) often in the analysed reporting.
+This is discussed for seven individual frames, as identified in the material, and for two grouped dependent variables which indicate the presence of absence of any *legitimising* or *delegitimising* frames.
+Grouping frames into this dichotomy allows to link results back to the reviewed literature.
 
-### Event-Level Factors
+Results indicate that...
 
-#### Protest Goals
+
+# What Drives Protest Coverage in News Media? {#sec:factors}
+
+This section interrogates the mechanisms driving protest coverage that have been brought up by scholars who studied the *protest paradigm*.
+To structure the discussion, I divide the factors into event-level, outlet-level and time-related factors.^[Similar to how @shoemakerMediatingMessage21st2014 divide influences believed to shape the news into several levels ordered from micro to macro.]
+It is important to recognize that the factors outlined below are rarely singular determinants of news coverage. Instead, a complex interplay of influences guides journalists in emphasizing specific aspects of a protest event over others. Some of these influences are consciously considered by journalists, while others remain implicit, as demonstrated by @tenenboimweinblattProducingProtestNews2014.
+
+## Event-Level Factors
+
+### Protest Goals
 
 On the level of the individual event, several studies document that the *goals or causes* voiced by protesters shape the coverage these events receive.
 In earlier studies, this has been mostly attributed to the idea that the media are agents of social control, who consciously and unconsciously reward conformity to and punish deviance from a perceived mainstream or *status quo* [@mcleodSocialControlSocial1999].
 In this regard, @shoemakerMediaTreatmentDeviant1984 found that groups that are perceived as more deviant or radical tend to receive more delegitimising coverage [@hallPolicingCrisisMugging1978]^[Also see the deviance sphere in @hallinUncensoredWarMedia1986.].
 Based on this, @boyleInfluenceLevelDeviance2004 tested how the *level of deviance* of protests shape their coverage.
 They conclude that coverage of deviant protest conformed closer to the *protest paradigm*, conceptualised as more critical coverage, coverage employing episodic framing and coverage that is less likely to use protesters as sources.
-
-The idea of a *level of deviance* can also be linked to @bennettindexing1990's theory of "indexing", which postulates that the range of voices and interpretations of events are organised "according to the range of views expressed in mainstream government debate about a given topic" (p. 106).
-This means that in times of elite consensus, media will limit its discussion to the opinions expressed by the powerful.
-Only in times of elite dissensus, the voices of the broader public will be heard.
-Otherwise, alternative information or narratives are assumed to encounter fierce resistance or outright blockage [@bennettNoneDareCall2006].
-Generally, it is thought that indexing hurts protesters' ability to explain the causes of their efforts [@andrewsMakingNewsMovement2010].
-
+<!-- The idea of a *level of deviance* can also be linked to @bennettindexing1990's theory of "indexing", which postulates that the range of voices and interpretations of events are organised "according to the range of views expressed in mainstream government debate about a given topic" (p. 106). -->
+<!-- This means that in times of elite consensus, media will limit its discussion to the opinions expressed by the powerful. -->
+<!-- Only in times of elite dissensus, the voices of the broader public will be heard. -->
+<!-- Otherwise, alternative information or narratives are assumed to encounter fierce resistance or outright blockage [@bennettNoneDareCall2006]. -->
+<!-- Generally, it is thought that indexing hurts protesters' ability to explain the causes of their efforts [@andrewsMakingNewsMovement2010]. -->
 However, while the notion that deviant goals are less likely to be cast in a positive light is well supported, newer studies have departed from it due to a theoretical ambiguity:
-there is no irrefutable conceptualisation of the "status quo" as political and social realities are constantly changing [@kilgoHierarchy2019; @harlowNewParadigm2023].
+there is no irrefutable conceptualisation of *the status quo* as political and social realities are constantly changing [@kilgoHierarchy2019; @harlowNewParadigm2023].
 A goal that was a threat to the status quo five or ten years ago could be in favour of the current situation.
-<!-- @boyleMeasuringLevelDeviance2009, for example, tested this idea by comparing the treatment of pro-life and pro-choice protests before and after the ruling in the Roe v. Wade case --- which effectively legalised abortion in the entire US.
-They found only partial support for the importance of the status quo for protest coverage as pro-life protesters were treated more critically after their goal became to change the status quo, but pro-choice protesters were treated the same before and after the law changed.
-Similarly, @boyleNewspapersProtestExamination2005 found that while the level of deviance of most protest movements decreased over time, headline and article valence stayed roughly the same. -->
 
 Analysing the deviance of protest goals from the status quo, therefore, appears less meaningful and has shifted the attention to more clear cut categories.
 @boyleInfluenceLevelDeviance2004 and @boyleNewspapersProtestExamination2005 studied a range of events between 1960 and 1999 and found that anti-war protesters were treated most critically, followed by labour protests (e.g., strikes and pickets), protests against wrongdoings by the police [only @boyleInfluenceLevelDeviance2004] and social-issue protests (e.g., abortion or hunger) which were treated most favourably.
@@ -139,8 +129,7 @@ They find that while not all protest types had a significant influence on the us
 conservative protests, for example, were less likely to be covered in a riot frame but more likely to be covered in a spectacle frame, while socio-economic protests were more likely to be covered using the riot frame.
 For a legitimising frame, dubbed debate frame, no significant relationship to a protest type was found.
 
-Following @kilgoHierarchy2019, I expect that some goals are more likely to receive legitimising and some are more likely to receive delegitimising coverage.
-In other words, I expect that a *hierarchy of social struggle* will emerge in UK reporting of protest, which can predict which causes are given precedence over others.
+Following @kilgoHierarchy2019, I expect that some goals are more likely to receive legitimising and some are more likely to receive delegitimising coverage, i.e. that a *hierarchy of social struggle* will emerge in UK reporting of protest.
 I will use five broad categories for protest goals, ordered from most to least likely to receive critical coverage these are:
 *political*, *anti-war*, *labour*, *police* and *social-issue* protests [@boyleAdherenceProtestParadigm2012; @boyleNewspapersProtestExamination2005; @boyleInfluenceLevelDeviance2004].
 The hypotheses I will test are thus:
@@ -148,9 +137,9 @@ The hypotheses I will test are thus:
 - `r hyp("H1a")`
 - `r hyp("H1b")`
 
-Note that the expected hierarchy in **H1b** is the flipped version of **H1a** as I expect that the likelihood for a protest to be covered with a legitimising frame should be roughly diametrically opposed to the likelihood for a protest to be covered with a delegitimising frame.
+Note that the expected hierarchy in **H1b** is the flipped version of **H1a** as it is generally expected that the likelihood for a protest to be covered with a legitimising frame should be roughly diametrically opposed to the likelihood for a protest to be covered with a delegitimising frame.
 
-#### Tactics
+### Tactics
 
 Early studies often treated goals and tactics as two sides of the same coin.
 However, @boyleMeasuringLevelDeviance2009 established that this is a shortcoming as both have distinct effects on the coverage of protest.
@@ -162,7 +151,7 @@ Likewise, @WasowSeeding2020 concludes that nonviolent black-led protests during 
 
 How extreme the tactics are is usually determined by two variables:
 do the protesters break laws and do they engage in violence?
-From a broader perspective, a focus on extreme protest tactics is, therefore, in line with the professional norms of "newsworthiness" mentioned above:
+From a broader perspective, a focus on extreme protest tactics is, therefore, in line with the professional norms of "newsworthiness":
 usually, the clashes rather than the message of a protest will produce most conflict, drama, unusualness and negativity.
 This leads to the following expectations:
 
@@ -172,10 +161,10 @@ This leads to the following expectations:
 The relation between violent tactics and coverage has been known for a long time by both researchers and protesters [@gitlinWholeWorldWatching1980].
 When tactics become more violent, coverage becomes less supportive of the cause and more supportive of repressive measures.
 Nevertheless, protesters often use violent tactics because this will usually lead to (more) coverage [@boyleAdherenceProtestParadigm2012].
-**H2a** and **H2b**, therefore, also answer the question if this bargain makes sense for a movement.
+**H2a** and **H2b**, therefore, also speak to the question if this bargain makes sense for a movement.
 
 
-#### State Response
+### State Response
 
 As mentioned above, @WasowSeeding2020 found in his study of black-led protests between 1960 and 1972 that protester-initiated violence led to delegitimising coverage and subsequently turned public opinion and voter preferences against the civil rights movement.
 However, @WasowSeeding2020 also tested the effects of violent state response towards the movement.
@@ -192,15 +181,15 @@ Following @WasowSeeding2020, I include this additional layer, which leads to the
 
 - `r hyp("H3")`
 
-### Outlet-Level Factors
+## Outlet-Level Factors
 
-#### Newspaper Ideology
+### Newspaper Ideology
 
 In the landmark study which defined the idea of a *protest paradigm*, @chanJournalisticParadigmsCivil1984 found that not all newspapers engage in delegitimising protests in the same way:
 the left-leaning media were less hostile towards the protesting teachers and students in Hong Kong than centrist media, which were in turn less hostile than right-leaning journalists.
 This factor has usually been overlooked in subsequent US-based studies, which might have assumed that ideological differences between major outlets are less important given the emphasis on objectivity in the country's journalistic culture.
 More recent studies, however, have started again to employ newspaper ideology as an explaining factor for the level of delegitimising reporting different protests face [@leeTriggeringProtestParadigm2014; @shahinProtestingParadigmComparative2016; @ozMainstreamMediasCoverage2016].
-UK media --- the focus of this study --- are known to be distinctly more partisan than outlets in the US and elsewhere [@kuhnPoliticsMediaBritain2007; @hallinComparingMediaSystems2004], which is likely to increase the effect of newspaper ideology on protest reporting.
+UK media --- the focus of this study --- are known to be distinctly more partisan than outlets in the US and elsewhere [@kuhnPoliticsMediaBritain2007; @hallinComparingMediaSystems2004], which could increase the effect of newspaper ideology on protest reporting.
 This leads to the expectation:
 
 - `r hyp("H4a")`
@@ -211,12 +200,12 @@ more than by their right or left ideology, the coverage of an outlet might be de
 They test this using prime-time cable news coverage about the right-leaning *Tea Party* movement in the United States in 2009-2010 to assess which outlets used marginalisation devices more often.
 Their finding suggests that liberally aligned MSNBC was most likely to marginalise the *Tea Party*, followed by the centrist AP and CNN, and Fox News being supportive overall.
 Since protests have traditionally held goals that were considered left more often in Western countries --- and continue to do so [@borbathDifferentWorldsContention2020] --- the assumption that right-leaning media are generally more critical of protest might be incorrect.
-This leads to two hypotheses that will be tested:
+This adds two hypotheses:
 
 - `r hyp("H5a")`
 - `r hyp("H5b")`
 
-#### Type of Newspaper
+### Type of Newspaper
 
 Gavin [-@gavinPressTelevisionBritish2007, pp. 95-118] and @rosieAnarchistsWorldCup2009 add another factor related to newspaper outlets:
 the difference between tabloid and broadsheet newspapers.
@@ -232,34 +221,31 @@ Following the work by @rosieAnarchistsWorldCup2009, the following expectations c
 - `r hyp("H6a")`
 - `r hyp("H6b")`
 
-### Time-Bound Factors
-#### Year of Protest
+## Time-Bound Factors
+### Year of Protest
 
 Two factors related to time are expected to have an influence on reporting about protests.
 The first one is that protests that happened more recently receive more legitimising coverage.
 In an earlier study, I showed that the level of legitimising framing in news about domestic protest has been steadily growing since the early 1990s [@gruberTrouble2023].
 Several mechanisms have been suggested for this:
-Protest has largely been normalised since the first seminal studies about movements in the 1960s have been conducted[@daltonDemocraticChallengesDemocratic2004; @sandersDynamicsProtestBritain2003; @norrisDemocraticPhoenixReinventing2002, pp. 188-212; @vanaelstWhoThatWo2001; @oliverPoliticalProcessesLocal2000].
-Today, many different groups employ protest as a tool, and many more people today have participated in a protest at least once in their lives [e.g., @borbathDifferentWorldsContention2020; @HutterChallenges2019].
+Protest has largely been normalised since the first seminal studies about movements in the 1960s have been conducted [@daltonDemocraticChallengesDemocratic2004; @sandersDynamicsProtestBritain2003; @norrisDemocraticPhoenixReinventing2002, pp. 188-212; @vanaelstWhoThatWo2001; @oliverPoliticalProcessesLocal2000].
+Today, many different groups employ protest as a political communication tool, and many more people today have participated in a protest at least once in their lives [e.g., @borbathDifferentWorldsContention2020; @HutterChallenges2019].
 Besides this, information about protesters' goals and grievances are more readily available on the internet [@humprechtMoreSameMarketplace2013; @posterWhatMatterInternet2001; @boydSocialNetworkSites2011], while journalists likely feel more pressure to paint a complete picture today as audiences have a sharply increased pool of alternative information sources [@vanaelstPoliticalCommunicationHighchoice2017].
 
-Whethter it is a combination of mechanisms or other unknown forces, the expected result of this factor is:
+Whether it is a combination of mechanisms or other unknown forces, the expected result of this factor is:
 
 - `r hyp("H8a")`
 
-#### Days Since Protest
+### Days Since Protest
 
 The second factor very likely only affects large scale, highly mediatised protests.
 @gottliebProtestNewsFraming2015 suggests that coverage follows a *news framing cycle*:
 coverage of protest begins with a focus on conflict --- hence marginalising or ignoring the goals and grievances of a protest --- then shifts to more substantial coverage before returning to conflict.
 This concept, based on @downsAttentionCycle1972, follows the logic that journalists will use different frames to cover an event as time passes "to keep the story alive and fresh" [@chyiMediaSalienceProcess2004, p. 22].
-<!-- Also see MouraoFerguson2018 -->
 
 The *news framing cycle* intuitively makes sense, yet the proposed time frame might suffer from one problem:
 Gottlieb’s [-@gottliebProtestNewsFraming2015] case, the Occupy Wall Street movement, was arguably special since protest stretched over a long period and media attention did not wane for months.
-He, therefore, suggests that the second phase, when reporting shifts to more substantial coverage, started only in the third week after the protest started.
-This finding is probably not suitable for generalisation as attention to most protests wanes after days, rather than weeks or months.
-In most cases, the media will have forgotten about a protest the day after the first reports were printed.
+He, therefore, suggests that the second phase, when reporting shifts to more substantial coverage, started only in the third week after the protest started --- that is, at a time when the media will have already forgotten most protest events.
 
 Nevertheless, the idea of a protest news framing cycle seems worth testing, albeit in an abbreviated form:
 
@@ -354,7 +340,7 @@ Specifically, I re-use the measurement of framing in newspaper reports on protes
 In short, frames were identified by coding the frame elements found in Entman's [-@entman1993] definition of framing (problem definition, causal interpretation, moral evaluation, and treatment recommendation) in 500 randomly selected articles and combining the coded elements to frames using factor analysis.
 This results in one binary variable per frame, which takes the value 1 if a frame is present and 0 otherwise.
 Each article can contain several frames, or none.
-After training supervised machine learning models trained on the manually coded random sample, all remaining articles were coded using these models.
+After training supervised machine learning models on the manually coded random sample, all remaining articles were coded using these models.
 
 @fig-frames show the seven identified frames and how often they were coded in news articles.
 The majority of them were determined to delegitimise protest using many of the same patterns identified in the *protest paradigm* literature.
@@ -517,9 +503,9 @@ plot <- twofram_marg %>%
   geom_point(colour = "#939597") +
   geom_pointrange(colour = "#939597") +
   geom_vline(xintercept = 0, linetype = "dashed", colour = "#F65058") +
-  facet_wrap(~model, ncol = 1, scales = "free_y", strip.position = "top") +
+  facet_wrap(~model, ncol = 1, scales = "free", strip.position = "top") +
   # facet_grid(rows = vars(model), scales = "free_y", space = "free_y")
-  labs(y = NULL, x = "Average Change in Probability of Frame Usage") +
+  labs(y = NULL, x = NULL) +
   theme(strip.background = element_rect(
     fill = "#EEEFF1",
     colour = NA)
@@ -714,7 +700,7 @@ plot <- indfram_marg %>%
   geom_point(colour = "#939597") +
   geom_pointrange(colour = "#939597") +
   geom_vline(xintercept = 0, linetype = "dashed", colour = "#F65058") +
-  facet_wrap(~model, ncol = 1, scales = "free_y", strip.position = "top") +
+  facet_wrap(~model, ncol = 2, scales = "free_y", strip.position = "top") +
   #facet_grid(rows = vars(model), scales = "free_y", space = "free_y") +
   labs(y = NULL, x = "Average Change in Probability of Frame Usage") +
   theme(strip.background = element_rect(
@@ -722,6 +708,7 @@ plot <- indfram_marg %>%
     colour = NA
   ))
 
+ggsave(filename = "fig-margindframes-select.png", plot = plot, width = 14, height = 7)
 fcsts <- indfram_marg %>%
   count(model) %>%
   pull(n)
@@ -849,7 +836,7 @@ Interestingly, *Police Violence*, again, aligns with the trend of the legitimisi
 
 The analyses presented in this article provide further evidence that the importance of the *protest paradigm* for news framing of protest is more conditional than suggested several decades ago [also e.g., @kilgoHierarchy2019; @shahinProtestingParadigmComparative2016; @leeTriggeringProtestParadigm2014].
 Or in other words, not all protests are treated the same and hence not all voices are heard to the same degree.
-Specifically, the systematic analysis of a set of key factors that are expected to shape frame usage in the 5,639 articles in this study showed that the tactics and goals, arrests of protesters, the days between a protest and a report about it play important roles for how protests are framed in the media.
+Specifically, the systematic analysis of a set of key factors that are expected to shape frame usage in the 5,639 articles in this study showed that the tactics and goals, arrests of protesters, the year a report was published and the days between a protest and a report about it play important roles for how protests are framed in the media.
 Additionally, legitimising framing has become more common in recent years.
 The analysis presented in this chapter is, therefore, an important step toward understanding how different protests are treated by the media.
 
