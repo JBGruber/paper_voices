@@ -34,7 +34,7 @@ jobs:
           install_missing(path = '.')
         shell: Rscript {0}
       - name: Render document
-        run: make
+        run: make compile
       - name: Get current time
         uses: 1466587594/get-current-time@v2
         id: current-time
