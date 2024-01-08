@@ -1,6 +1,14 @@
 ## Selected and Recoded protest events {#app-eventdata .appendix}
 
-Events were filtered from @ClarkMMPdata2019 to include only protests in the UK.
+To merge the two datasets, the data on protest reporting in the UK and protest event data from @ClarkMMPdata2019. I employed a two-staged strategy:
+first, I selected all articles in the newspaper dataset that were published no earlier than seven days before an event started and no later than 30 days after it ended;
+then I used the variables "Protest Locations", "Protest Group Identity" and "Protester Demands" to extract suitable keywords.
+I then used keywords to filter the articles selected in the first stage:
+articles were discarded if they did not feature at least one of the keywords.
+This selection was manually validated and overlaps between events were separated by hand.
+Overall, 5,639 articles could be matched with the 471 events from the database.
+
+The list of events was obtained by filtering MMP data from @ClarkMMPdata2019 to include only protests in the UK.
 Most variables in the raw data were either enriched or recoded before the main analysis.
 
 The first event-level variable, *Protest Goal*, originally contained eight different demands from protesters.

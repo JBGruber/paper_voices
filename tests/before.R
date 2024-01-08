@@ -10,7 +10,7 @@ test_that("check for missing packages", {
 
 test_that("force spell check", {
   expect_true({
-    custom_spell_check(c("../paper/abstract.md", "../paper/abstract.md"))
+    custom_spell_check("../paper/abstract.md")
   })
 })
 

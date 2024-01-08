@@ -190,8 +190,8 @@ update_bib <- function(qmds = c("../paper/article.qmd"),
     # remove to save words
     l <- readLines(master_bib)
     tmp <- tempfile()
-    l <- l[!grepl("abstract\\s*=|address\\s*=|edition\\s*=",
-                  l, ignore.case = TRUE)]
+    # l <- l[!grepl("abstract\\s*=|address\\s*=|edition\\s*=",
+    #               l, ignore.case = TRUE)]
     writeLines(l, tmp)
     
     bib_master <- suppressMessages(bibtex::read.bib(tmp))

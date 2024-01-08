@@ -13,3 +13,6 @@ paper/te.bst
 /.luarc.json
 paper/article.md
 paper/article.tex
+paper/article_files
+paper/_extensions
+paper/article.pdf
