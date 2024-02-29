@@ -19,6 +19,8 @@ format:
           \usepackage{siunitx}
           \usepackage{graphicx}
           \usepackage{rotating}
+          \usepackage{setspace}
+          \linespread{2}
     filters: 
       - "_extensions/andrewheiss/wordcount/citeproc.lua"
       - "_extensions/andrewheiss/wordcount/wordcount.lua"
@@ -27,7 +29,6 @@ format:
     filters: 
       - "_extensions/andrewheiss/wordcount/citeproc.lua"
       - "_extensions/andrewheiss/wordcount/wordcount.lua"
-date: today
 filters:
   - abstract-section
 keywords:
@@ -97,7 +98,7 @@ Results indicate that the way protests are framed in news coverage is influenced
 **Timing of coverage**: reports that are more immediate after an event, and reports that are from more recent years tend to include more legitimizing frames in their coverage.
 
 
-# What Drives Protest Coverage in News Media? {#sec:factors}
+# What Drives Protest Coverage in News Media? {#sec-factors}
 
 To structure the review of previously identified factors that shape protest reporting, I interrogate factors on the event-level, outlet-level and time-related factors below.^[Similar to how @shoemakerMediatingMessage21st2014 divide influences believed to shape the news into several levels ordered from micro to macro.]
 It is important to recognize, however, that the factors outlined below are rarely singular determinants of news coverage. Instead, a complex interplay of influences guides journalists in emphasizing specific aspects of a protest event over others. Some of these influences are consciously considered by journalists, while others remain implicit, as demonstrated by @tenenboimweinblattProducingProtestNews2014.
@@ -338,7 +339,7 @@ outlets |>
 ```
 
 This dataset was coded for framing of protest reporting.
-Specifically, I re-use the measurement of framing in newspaper reports on protests and demonstrations from @gruberTrouble2023.
+Specifically, I re-use the measurement of framing in newspaper reports on protests and demonstrations from Author (Year). <!-- @gruberTrouble2023. -->
 In short, frames were identified by coding the frame elements found in Entman's [-@entman1993] definition of framing (problem definition, causal interpretation, moral evaluation, and treatment recommendation) in 500 randomly selected articles.
 These elements were then combined to frames using factor analysis.
 The result is one binary variable per frame, which takes the value 1 if a frame is present and 0 otherwise.
@@ -398,7 +399,7 @@ readRDS("../misc/protest_event_data_uk.Rds")  |>
         panel.grid.minor = element_blank())
 ```
 
-I merged the two datasets by using the time frame of each event and some keywords (see Appendix).
+I merged the two datasets by using the time frame of each event and some keywords (see Supplementary Information file).
 Overall, 5,639 articles could be matched with the 471 events from the database.
 Using the variables listed in @tbl-variables, I then fitted multilevel logistic regression models (one for each frame) to establish the influence of the different factors on reporting.
 Specifically, I used the *lme4* package in R [@lme4].
@@ -621,7 +622,8 @@ days_pred %>%
   labs(y = NULL, x = NULL)
 ```
 
-As was already shown in @gruberTrouble2023, the year does not affect the probability of delegitimising frames but does increase the probability that legitimising frames being used.
+<!-- As was already shown in  -->
+@gruberTrouble2023 showed that the year does not affect the probability of delegitimising frames but does increase the probability that legitimising frames being used.
 <!-- ^[ -->
 <!-- Although @gruberTrouble2023 uses the year in which an article was published while here it is the year of the protest event itself --- which is identical for most articles though. Note also that articles were excluded if they could not be matched with any event in the MMP data. -->
 <!-- ] -->
@@ -949,7 +951,14 @@ Based on the collected factors analysed here and the their importance for the fr
 
 ::: {#appendix-count}
 
-# Appendix {#sec-eventdata .unnumbered}
+# Supplementary Information file {#sec-eventdata .unnumbered}
+
+\newpage
+\appendix
+\renewcommand{\thefigure}{A\arabic{figure}}
+\renewcommand{\thetable}{A\arabic{table}}
+\setcounter{figure}{0}
+\setcounter{table}{0}
 
 ```{r article, child = "app-eventdata.qmd"}
 ```

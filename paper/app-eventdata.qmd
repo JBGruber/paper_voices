@@ -13,14 +13,15 @@ Most variables in the raw data were either enriched or recoded before the main a
 
 The first event-level variable, *Protest Goal*, originally contained eight different demands from protesters.
 If a protest had more than one demand, @ClarkMMPdata2019 coded multiple goals for the same protest accordingly.
-The specific goals coded in the MMP data were recoded to achieve a better fit with the literature reviewed in Section \@ref(sec:factors).
-Table \@ref(tab:goalsrecode) shows the codes used by @ClarkMMPdata2019 on the left and the respective codes used here on the right.^[
+The specific goals coded in the MMP data were recoded to achieve a better fit with the literature reviewed in Section *Event-Level Factors*.
+@tbl-goalsrecode shows the codes used by @ClarkMMPdata2019 on the left and the respective codes used here on the right.^[
 Specifically, the categories used here are *anti-war*, *labour*, *police brutality*, *social-issue* and *political* protests.
 ]
 To obtain the *anti-war* coding, protester identity, which is another code used in the MMP data, was used in addition to the protest demand.
-Table \@ref(tab:goalsdist) shows how often each demand was coded.
+@tbl-goalsrecode shows how often each demand was coded.
 
-```{r goalsrecode}
+```{r tbl-goalsrecode}
+#| tbl-cap: Recoded Protester Demands
 tibble::tribble(
   ~Code, ~"Recoded to",
   "political behavior, process", "anti-war (also based on protester identity)",
@@ -31,13 +32,29 @@ tibble::tribble(
   "social restriction", "social-issue",
   "political behavior, process", "political",
   "removal of politician", "political"
-) %>%
-  custom_df_print(caption = "Recoded Protester Demands")
+) |> 
+  knitr::kable(format = "latex",
+               booktabs = TRUE,
+               longtable = TRUE,
+               linesep = "")
 ```
 
-```{r goalsdist}
-rio::import("../misc/protesterdemand_table.csv") |>
-  custom_df_print(caption = "Distribution of Protester Demands")
+```{r tbl-goalsdist}
+#| tbl-cap: Distribution of Protester Demands
+# rio::import("../misc/protesterdemand_table.csv") |> 
+tibble::tribble(
+  ~Demand, ~n, ~"of total",
+  "political", 3656, "64.8%",
+  "social-issue", 1102, "19.5%",
+  "labour", 566, "10.0%",
+  "anti-war", 225, "4.0%",
+  "police", 90, "1.6%"
+) |> 
+  knitr::kable(format = "latex",
+               booktabs = TRUE,
+               longtable = TRUE,
+               linesep = "")
+  # custom_df_print(caption = "Distribution of Protester Demands")
 ```
 
 The variable *violence* is a proxy for protesters' tactics.
@@ -46,12 +63,6 @@ As described above, tactics are usually operationalised by measuring if proteste
 For the subset of the data, 3,431 of the events were coded as peaceful while violence
 occurred during 2,208 protests ($\bar{x} = 0.39$).
 
-As mentioned in Section \@ref(sec:eventdata), a protest's goal and violence are prone to be affected by endogeneity, as @ClarkMMPdata2019 coded their data based on news reports, which is also the basis for the dependent variable here.
-It needs to be noted that the reports used for coding were removed before calculating the models.^[
-Specifically, the MMP data contains a text snippet from the article(s) on which the coding was based. These articles were removed from the database. Additional robustness checks were also performed and are described later on.
-]
-Nevertheless, the results regarding the variables *protest goal* and *violence* should be seen with some caution.
-
 The variable *state repression of peaceful protest* was constructed to reflect the occurrence of a specific case outlined by @WasowSeeding2020:
 when the state uses repression against peaceful protesters.
 In this case, the expectation is that there will be more legitimising framing in the coverage of a protest event.
@@ -59,14 +70,14 @@ The variable *protester violence* was used again to assess the second condition 
 For the first condition, the variable *stateresponse* in the MMP dataset was employed.
 Of the five coded responses, "arrests" or "beatings" were interpreted as being repressive.
 When one of these two was employed by the state during peaceful protests, *state repression of peaceful protest* was coded as 1, otherwise, it was 0 ($\bar{x} = 0.46$).
-Figure \@ref(fig:stateresponse) shows the percentage of violent and peaceful protests facing different kinds of state responses in the subset of the MMP data.
+@fig-stateresponse shows the percentage of violent and peaceful protests facing different kinds of state responses in the subset of the MMP data.
 One problem becomes apparent in this:
 the data for the UK did not contain a single case in which beatings occurred during peaceful protests.
 Therefore, in this case, *state repression of peaceful protest* reflects arrests of peaceful protesters.
 This is specific to the UK, data whereas beatings of peaceful protesters were recorded in other countries, including other countries in Western Europe.
 
-```{r stateresponse, fig.height=3, fig.width=6, fig.cap="Percent of Violent and Peaceful Protests Facing Different Kinds of State Responses"}
-rio::import("../misc/protesterviolence_table.csv") %>%
+```{r fig-stateresponse, fig.height=3, fig.width=6, fig.cap="Percent of Violent and Peaceful Protests Facing Different Kinds of State Responses"}
+rio::import("../misc/protesterviolence_table.csv") |>
   ggplot(aes(x = pct, y = as.factor(protesterviolence), fill = stateresponse2)) +
   geom_col() +
   scale_x_continuous(labels = scales::percent) +
@@ -111,14 +122,14 @@ rio::import("../misc/protesterviolence_table.csv") %>%
 
 The three outlet-level variables were coded based on the literature on the characteristics of the UK newspapers.
 Specifically, newspaper outlets in the UK are divided into right-leaning (i.e., closer to the Conservative party) and left-leaning (i.e., closer to the Labour party), as well as between tabloids and broadsheets.
-The newspaper outlets included in the sample were coded as noted in Table \@ref(tab:outlets).
+The newspaper outlets included in the sample were coded as noted in @tbl-outlets.
 
 ```{r}
 ideo_count_table <- rio::import("../misc/ideo_count_table.csv")
 ideo <- function(l, type = "pct") {
-  ideo_count_table %>%
-    filter(ideology == l) %>%
-    select(matches(type)) %>%
+  ideo_count_table |>
+    filter(ideology == l) |>
+    select(matches(type)) |>
     pull()
 }
 ```
@@ -128,7 +139,7 @@ An ideological divide is present when the newspaper ideology is right-leaning an
 The newspaper ideology is known; however, I had to code the ideology of the protest myself based on the information in the MMP dataset and in other articles about an event.^[See Appendix for the specific coding.]
 Note, that since "right"- and "left"-leaning are concepts which are often disputed, I tried to assess whether a protest aligns closer with the main UK right-wing or left-wing party (i.e., closer to Labour or Conservative politics), as this is how British newspapers are usually divided [@kuhnPoliticsMediaBritain2007].
 
-The table below contains the ideology variable that was added through annotation of events.
+@tbl-eventdata contains the ideology variable that was added through annotation of events.
 
 Finally, I used two *time-bound* variables: *days from start* and *year of protest*.
 The MMP dataset provides the first day of a protest.
@@ -137,19 +148,19 @@ Since newspapers sometimes report about the preparations for a protest event bef
 *Year of protest* indicates when a protest started, rather than the year in which reports about it were published.
 Both variables related to time were normalised by scaling them between 0 and 1 to make effect sizes comparable to the other variables --- which all already range between 0 and 1.
 
-```{r}
-rio::import("../misc/mmp_events_coded_table.csv") %>%
+```{r tbl-eventdata}
+#| eval: true
+#| tbl-cap: Employed Subset of the MMP Data by Clark and Regan (2019) with Additional and Recoded Variables
+rio::import("../misc/mmp_events_coded_table.csv") |> 
   knitr::kable(format = "latex",
                booktabs = TRUE,
                longtable = TRUE,
-               linesep = "",
-               caption = "Employed Subset of the MMP Data by Clark and Regan (2019) with Additional and Recoded Variables",
-               label = NA) %>%
+               linesep = "") |>
   kableExtra::kable_styling(
     full_width = FALSE,
     latex_options = "repeat_header",
     font_size = 10
-  )%>% 
-  kableExtra::column_spec(c(1:3, 5), width = "1.8cm") %>%
+  )|> 
+  kableExtra::column_spec(c(1:3, 5), width = "1.8cm") |>
   kableExtra::column_spec(4, width = "6cm")
 ```

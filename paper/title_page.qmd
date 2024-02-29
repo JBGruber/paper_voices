@@ -1,0 +1,68 @@
+---
+title: "Whose voices are heard?"
+subtitle: "Making sense of framing patterns in protest coverage"
+abstract: |
+  Existing research indicates that when mainstream news media report about demonstrations, protesters often face delegitimising coverage that focuses on, for example, clashes with the police or the appearance of protesters instead of their message.
+  Recent studies have also found, however, that media treatment differs along several features of protest events.
+  In this study, I examine the impact of these features through a large-scale automated framing analysis of UK protest events from 1992 to 2017, complemented by data from the Mass Mobilization Project (MMP).
+  My findings highlight four main determinants influencing the use of legitimising or delegitimising framing in protest news coverage:
+  (1.) Violence: Protests involving violence receive more delegitimising coverage and less legitimising coverage.
+  (2.) Protest goals: The objectives of a protest significantly affect the nature of its coverage, although the relationships between frames and goals are complex. Notably, goals play a larger role in legitimising framing.
+  (3.) Outlet characteristics: The type and ideology of a news outlet also impact coverage, though to a lesser extent than anticipated.
+  (4.) Timing: More recent reports and those published a significant time after the event's onset are more likely to contain legitimising framing.
+
+format:
+  aft-pdf:
+    keep-tex: true
+    include-in-header:
+      - text: |
+          \usepackage{siunitx}
+          \usepackage{graphicx}
+          \usepackage{rotating}
+    filters: 
+      - "_extensions/andrewheiss/wordcount/citeproc.lua"
+      - "_extensions/andrewheiss/wordcount/wordcount.lua"
+  aft-html: 
+    citeproc: false
+    filters: 
+      - "_extensions/andrewheiss/wordcount/citeproc.lua"
+      - "_extensions/andrewheiss/wordcount/wordcount.lua"
+date: today
+filters:
+  - abstract-section
+keywords:
+    - "protest paradigm"
+    - "media framing"
+    - "social movements"
+    - "news reporting"
+    - "content analysis"
+execute:
+  echo: false
+  eval: true
+  
+author:
+  - name: Johannes B. Gruber
+    affiliations:
+      - name: University of Amsterdam
+        department: Amsterdam School of Communication Research
+        city: Amsterdam
+        country: Netherlands
+    email: J.B.Gruber@UVA.nl # corresponding author gets email
+    orcid: 0000-0001-9177-1772
+---
+
+Word Count: **8978**
+
+Keywords: *protest paradigm*, *Media framing*, *Social movements*, *News reporting*, *content analysis*
+
+Contact: 
+
+Johannes B. Gruber\newline
+J.B.Gruber@UVA.nl\newline
+Nieuwe Achtergracht 166\newline
+1018 WV Amsterdam, Netherlands\newline
++31 6 81963022
+
+# Author biography
+
+**Johannes B. Gruber** completed his PhD at the University of Glasgow before working as a postdoc-toral researcher at the Chair for Digital Democracy at the European New School of Digital Studies (ENS) and later the departments of Communication Science at Vrije Universiteit Amsterdam and the University of Amsterdam. His substantial research focuses on news media framing of protest and agenda setting in hybrid media systems. Beyond that, he is interested in text as data methods and tools.
